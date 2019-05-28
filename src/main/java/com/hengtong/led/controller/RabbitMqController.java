@@ -19,6 +19,9 @@ public class RabbitMqController {
     private FirstSender sender;
 
 
+    /**
+     * 模拟发送mq
+     * */
     @GetMapping(value = "/mq")
     @ResponseBody
     public int rabbitMq(String content){
