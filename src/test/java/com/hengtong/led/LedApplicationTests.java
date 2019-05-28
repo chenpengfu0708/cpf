@@ -318,7 +318,12 @@ public class LedApplicationTests {
         Map<String, String> map = new HashMap<>();
         map.put("name", "罗一");
         map.put("age", "16");
-        List<User> user = userMapper.getByMap(map);
+        List<Integer> ids = new ArrayList<>();
+        ids.add(2);
+        ids.add(3);
+        List<User> mapUser = userMapper.getByMap(map);
+        List<User> user = userMapper.getByIds(ids);
+        System.out.println(mapUser);
         System.out.println(user);
     }
 
