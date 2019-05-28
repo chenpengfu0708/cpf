@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -36,5 +37,9 @@ public interface UserMapper {
 
     @Select("select * from user where name = #{name}")
     List<User> getByName(@Param("name") String name);
+
+
+    @Select("select * from user where name = #{name} and age >= #{age}")
+    List<User> getByMap(Map map);
 
 }

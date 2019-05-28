@@ -315,6 +315,11 @@ public class LedApplicationTests {
 
     @Test
     public void async(){
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "罗一");
+        map.put("age", "16");
+        List<User> user = userMapper.getByMap(map);
+        System.out.println(user);
     }
 
 
