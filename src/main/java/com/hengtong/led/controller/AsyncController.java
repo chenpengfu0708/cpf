@@ -23,4 +23,20 @@ public class AsyncController {
         asyncUtils.timer();
         return 0;
     }
+
+
+
+    @GetMapping("/exception")
+    @ResponseBody
+    public int exce(){
+        System.out.println("准备开始异常。。");
+        try {
+            asyncUtils.exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("try catch 代码还能跑。。");
+        return 0;
+    }
+    
 }

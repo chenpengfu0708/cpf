@@ -59,4 +59,11 @@ public class AsyncUtils {
         },time, TimeUnit.SECONDS);
         System.out.println("end...");
     }
+
+
+    public void exception() throws Exception {
+        System.out.println("异常抛出。。");
+        throw new Exception();
+    }
 }
+
