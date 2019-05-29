@@ -7,11 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @date: 2019/5/29 14:22
- * @author: rain
- * @description: led
- */
+
 @Component
 public class RedisLockUtils {
 
@@ -25,10 +21,11 @@ public class RedisLockUtils {
         try{
             locked = lock.tryLock(10, TimeUnit.SECONDS);
             if (locked){
+                //开始写业务
                 System.out.println(num + "锁住了。。。");
-                System.out.println(num + "准备开始线程沉睡。。");
+                System.out.println(num + "模拟业务耗时开始。。");
                 Thread.sleep(10);
-                System.out.println(num + "线程苏醒。。。");
+                System.out.println(num + "模拟业务耗时结束。。。");
             } else {
                 System.out.println(num + "没锁住。。。");
             }
@@ -37,8 +34,8 @@ public class RedisLockUtils {
         } finally {
             if (locked){
                 System.out.println(num + "释放锁");
+                System.out.println();
                 lock.unlock();
-                System.out.println("");
             }
         }
     }
@@ -46,8 +43,7 @@ public class RedisLockUtils {
 
     public void testThreadLock(){
         String key = "threadLock";
-        for (int i=1; i<50; i++){
-            String a = "" + i;
+        for (int i=1; i<100; i++){
             new Thread(){
                 @Override
                 public void run(){

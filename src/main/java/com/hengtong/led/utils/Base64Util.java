@@ -2,11 +2,7 @@ package com.hengtong.led.utils;
 
 import org.springframework.util.Base64Utils;
 
-/**
- * @date: 2019/4/16 15:28
- * @author: rain
- * @description: KLServer
- */
+
 public class Base64Util {
     /**
      * BASE64解密
