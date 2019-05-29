@@ -98,6 +98,14 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!-- redisson 分布式锁实现 -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.6.5</version>
+        </dependency>
+
+
         <!--  json-->
         <dependency>
             <groupId>com.alibaba</groupId>
