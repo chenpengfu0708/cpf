@@ -1,6 +1,7 @@
 package com.hengtong.led.controller;
 
 import com.hengtong.led.utils.RedisLockUtils;
+import com.hengtong.led.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class RedissonController {
     @Autowired
     private RedisLockUtils redisLockUtils;
+    @Autowired
+    private RedisUtils redisUtils;
 
     @GetMapping("/redisson")
     @ResponseBody
@@ -22,4 +25,17 @@ public class RedissonController {
         redisLockUtils.testThreadLock();
         return 0;
     }
+
+
+    @GetMapping("/redis_count")
+    @ResponseBody
+    public int redisCount(Long uid){
+        String key = "testCount";
+        System.out.println("去重统计总数为：" + redisUtils.bitCount(key));
+        redisUtils.setBitmap(key, uid);
+        System.out.println("去重统计总数为：" + redisUtils.bitCount(key));
+        return 0;
+    }
+
+
 }
