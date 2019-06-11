@@ -3,11 +3,7 @@ package com.hengtong.led.mqcallback;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
-/**
- * @date: 2019/5/10 17:37
- * @author: rain
- * @description: led
- */
+
 public class MsgSendConfirmCallBack implements RabbitTemplate.ConfirmCallback {
 
     @Override
