@@ -5,37 +5,16 @@ import com.github.pagehelper.PageInfo;
 import com.hengtong.led.dto.PageResponseDto;
 import com.hengtong.led.entity.User;
 import com.hengtong.led.mapper.UserMapper;
-import com.hengtong.led.utils.AsyncUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @date: 2019/5/22 14:48
- * @author: rain
- * @description: led
- */
+
 @Service
 public class UserService {
     @Autowired
-    private TeacherService teacherService;
-    @Autowired
-    private AsyncUtils asyncUtils;
-    @Autowired
     private UserMapper userMapper;
-
-
-    public void test(){
-        teacherService.test();
-        System.out.println("UserService.test");
-    }
-
-    public void testAsync(){
-        System.out.println("testAsync。。。");
-        asyncUtils.async();
-    }
-
 
     /**
      * 分页查询插件

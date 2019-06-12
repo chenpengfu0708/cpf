@@ -13,6 +13,7 @@ public class RedisLockUtils {
 
     @Autowired
     private RedissonClient redisson;
+    private static int num1 = 0;
 
 
     public void lock(String key, String num){
@@ -21,6 +22,7 @@ public class RedisLockUtils {
         try{
             locked = lock.tryLock(10, TimeUnit.SECONDS);
             if (locked){
+                num1++;
                 //开始写业务
                 System.out.println(num + "锁住了。。。");
                 System.out.println(num + "模拟业务耗时开始。。");
@@ -33,9 +35,14 @@ public class RedisLockUtils {
             e.printStackTrace();
         } finally {
             if (locked){
-                System.out.println(num + "释放锁");
-                System.out.println();
-                lock.unlock();
+                try{
+                    System.out.println(num + "释放锁");
+                    System.out.println(num1);
+                    System.out.println();
+                    lock.unlock();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
     }
