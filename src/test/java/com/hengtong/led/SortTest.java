@@ -7,11 +7,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Random;
 
-/**
- * @date: 2019/6/4 11:36
- * @author: rain
- * @description: led
- */
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class SortTest {
@@ -40,5 +35,19 @@ public class SortTest {
                 System.out.println(i);
             }
         }
+    }
+
+
+    @Test
+    public void t(){
+        Integer a = 1;
+        Integer b = 1;
+        Integer c = 128;
+        Integer d = 128;
+        String t1 = "hello";
+        String t2 = new String("hello");
+        System.out.println(a == b);
+        System.out.println(c == d);
+        System.out.println(t1 == t2);
     }
 }

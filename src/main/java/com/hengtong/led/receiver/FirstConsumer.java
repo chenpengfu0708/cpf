@@ -6,11 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-/**
- * @date: 2019/5/10 17:39
- * @author: rain
- * @description: led
- */
+
 @Slf4j
 @Component
 public class FirstConsumer {

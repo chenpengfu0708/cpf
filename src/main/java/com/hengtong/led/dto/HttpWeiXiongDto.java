@@ -4,11 +4,7 @@ import lombok.Data;
 
 import java.util.List;
 
-/**
- * @date: 2019/5/23 14:53
- * @author: rain
- * @description: led
- */
+
 @Data
 public class HttpWeiXiongDto {
 

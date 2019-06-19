@@ -8,11 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-/**
- * @date: 2019/4/29 17:04
- * @author: rain
- * @description: led
- */
+
 @Order(1)
 @Component
 public class TestApplicationRun implements ApplicationRunner {

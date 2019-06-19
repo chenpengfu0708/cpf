@@ -5,11 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-/**
- * @date: 2019/5/10 17:36
- * @author: rain
- * @description: led
- */
+
 @Configuration
 public class QueueConfig {
     @Bean

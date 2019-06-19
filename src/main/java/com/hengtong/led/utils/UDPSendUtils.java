@@ -3,13 +3,8 @@ package com.hengtong.led.utils;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.Scanner;
 
-/**
- * @date: 2019/6/11 11:31
- * @author: rain
- * @description: led
- */
+
 public class UDPSendUtils {
 
     public static void main(String[] args) {

@@ -4,11 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @date: 2019/4/25 16:35
- * @author: rain
- * @description: led
- */
+
 @Component
 public class Voice {
 

@@ -2,11 +2,7 @@ package com.hengtong.led.service;
 
 import java.util.Scanner;
 
-/**
- * @date: 2019/5/17 12:04
- * @author: rain
- * @description: led
- */
+
 public class TestArr {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

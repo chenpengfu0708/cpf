@@ -7,11 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-/**
- * @date: 2019/5/22 9:47
- * @author: rain
- * @description: led
- */
+
 @Configuration
 public class DataSourceConfig {
 

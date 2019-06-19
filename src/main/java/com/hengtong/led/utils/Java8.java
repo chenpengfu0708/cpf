@@ -7,11 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-/**
- * @date: 2019/5/8 17:31
- * @author: rain
- * @description: led
- */
+
 @Component
 public class Java8 {
 

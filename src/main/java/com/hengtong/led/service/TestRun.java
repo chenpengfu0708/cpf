@@ -3,11 +3,7 @@ package com.hengtong.led.service;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-/**
- * @date: 2019/4/29 16:58
- * @author: rain
- * @description: led
- */
+
 public class TestRun implements Runnable {
 
     @Override

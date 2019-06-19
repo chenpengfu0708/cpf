@@ -8,11 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.UUID;
 
-/**
- * @date: 2019/5/10 17:16
- * @author: rain
- * @description: led
- */
+
 @Controller
 public class RabbitMqController {
     @Autowired

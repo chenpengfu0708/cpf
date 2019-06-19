@@ -8,11 +8,7 @@ import java.util.TimerTask;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @date: 2019/5/24 14:08
- * @author: rain
- * @description: led
- */
+
 @Component
 public class AsyncUtils {
 

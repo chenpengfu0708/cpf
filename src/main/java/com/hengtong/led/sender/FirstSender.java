@@ -7,11 +7,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- * @date: 2019/5/10 17:38
- * @author: rain
- * @description: led
- */
+
 @Component
 @Slf4j
 public class FirstSender {

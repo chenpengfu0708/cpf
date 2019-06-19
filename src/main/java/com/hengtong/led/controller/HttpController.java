@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 
-/**
- * @date: 2019/5/23 11:48
- * @author: rain
- * @description: led
- */
+
 @Controller
 @Slf4j
 public class HttpController {

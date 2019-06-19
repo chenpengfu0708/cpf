@@ -4,11 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-/**
- * @date: 2019/6/6 16:27
- * @author: rain
- * @description: led
- */
+
 @Component
 public class TalkUtils {
 
