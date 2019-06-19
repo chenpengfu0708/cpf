@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hengtong.led.dto.CommonResponseDto;
 import com.hengtong.led.dto.TestRequestDto;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -24,6 +21,12 @@ public class HtmlController {
     @RequestMapping(value = "/success", method = RequestMethod.GET)
     public String success(){
         return "success";
+    }
+
+
+    @RequestMapping(value = "/echarts", method = RequestMethod.GET)
+    public String echarts(){
+        return "echarts";
     }
 
 

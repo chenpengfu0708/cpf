@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../js/echarts.min.js"></script>
+<body>
+<div id="main" style="width: 600px;height:400px;"></div>
+</body>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var xdata = ['1月','2月','3月','4月','5月','6月','7月'];
+    var seriesData = [82, 32, 57, 34, 290, 330, 320];
+    var option = {
+        title: {
+            text: '折线图堆叠'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['工作量']
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: xdata
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name: '工作量',
+            data: seriesData,
+            type: 'line'
+        }]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</html>
