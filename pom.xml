@@ -142,6 +142,13 @@
             <version>7.0</version>
         </dependency>
 
+        <!-- 极光推送依赖-->
+        <dependency>
+            <groupId>cn.jpush.api</groupId>
+            <artifactId>jpush-client</artifactId>
+            <version>3.2.9</version>
+        </dependency>
+
 
 
 

@@ -21,5 +21,10 @@ spring:
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
 
+jpush:
+  appKey: 39cbe871d7284412df5013b2
+  masterSecret: 13e1aafff34c1e91406fa87c
+  liveTime: 30000
+
 
 
