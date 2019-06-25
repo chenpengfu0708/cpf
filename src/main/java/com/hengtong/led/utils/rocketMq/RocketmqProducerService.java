@@ -37,7 +37,6 @@ public class RocketmqProducerService {
      * 应用场景：应用场景非常广泛，例如重要通知邮件、报名短信通知、营销短信系统等；
      */
     public boolean sendMsg(String msg) {
-        Long startTime = System.currentTimeMillis();
         Message message = new Message(msgTopic, tag, msg.getBytes());
         SendResult sendResult = rocketmqProducerInit.getProducer().send(message);
         if (sendResult != null) {
@@ -45,8 +44,6 @@ public class RocketmqProducerService {
         } else {
             logger.warn(".sendResult is null.........");
         }
-        Long endTime = System.currentTimeMillis();
-        System.out.println("单次生产耗时："+(endTime-startTime)/1000);
         return true;
     }
 
@@ -59,7 +56,6 @@ public class RocketmqProducerService {
      * @return
      */
     public boolean sendMsgAsy(String msg) {
-        Long startTime = System.currentTimeMillis();
         Message message = new Message(msgTopic, tag, msg.getBytes());
         rocketmqProducerInit.getProducer().sendAsync(message, new SendCallback() {
             @Override
@@ -74,7 +70,6 @@ public class RocketmqProducerService {
             }
         });
         Long endTime = System.currentTimeMillis();
-        System.out.println("单次生产耗时："+(endTime-startTime)/1000);
         return true;
     }
 
@@ -86,11 +81,8 @@ public class RocketmqProducerService {
      * @return
      */
     public boolean sendMsgOneway(String msg) {
-        Long startTime = System.currentTimeMillis();
         Message message = new Message(msgTopic, tag, msg.getBytes());
         rocketmqProducerInit.getProducer().sendOneway(message);
-        Long endTime = System.currentTimeMillis();
-        System.out.println("单次生产耗时："+(endTime-startTime)/1000);
         return true;
     }
 
