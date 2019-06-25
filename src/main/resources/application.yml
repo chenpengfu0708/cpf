@@ -26,5 +26,13 @@ jpush:
   masterSecret: 13e1aafff34c1e91406fa87c
   liveTime: 30000
 
+#配置rocketmq
+rocketmq:
+  groupId: GID_test_tcp
+  msgTopic: topic_cpf_test
+  accessKey: xxx
+  secretKey: xxx
+  onsAddr: xxx  #生产者TCP接入域名
+
 
 

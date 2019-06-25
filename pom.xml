@@ -149,6 +149,13 @@
             <version>3.2.9</version>
         </dependency>
 
+        <!-- 添加阿里云rocketmq客户端 -->
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>ons-client</artifactId>
+            <version>1.8.0.Final</version>
+        </dependency>
+
 
 
 
