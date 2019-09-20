@@ -1,0 +1,10 @@
+CREATE TABLE `template_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entity_object` varchar(100) NOT NULL DEFAULT '' COMMENT '实体对象',
+  `start_row` int(11) NOT NULL DEFAULT '0' COMMENT '开始行',
+  `field` json DEFAULT NULL COMMENT '字段',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='模板数据表';
+
+
+INSERT INTO `smartcity_base_test`.`template_data`(`id`, `entity_object`, `start_row`, `field`) VALUES (1, 'DOORPLATE_QR_CODE', 2, '[{\"fieldLong\": 50, \"fieldName\": \"address\", \"fieldType\": \"String\", \"isNotNull\": \"是\", \"templateColumn\": 0}]');

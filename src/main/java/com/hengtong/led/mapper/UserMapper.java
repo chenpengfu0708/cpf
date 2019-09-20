@@ -42,4 +42,7 @@ public interface UserMapper {
     @Select("select * from user where name = #{name} and age >= #{age}")
     List<User> getByMap(Map map);
 
+    @Update("update user set age = #{age} where id = #{id}")
+    Integer update(@Param("age") Integer age, @Param("id") Integer id);
+
 }

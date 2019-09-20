@@ -7,16 +7,16 @@ spring:
     host: localhost
     port: 6379
     timeout: 1000
-#  rabbitmq:
-#    port: 5672
-#    host: 127.0.0.1
-#    username: guest
-#    password: guest
-#    publisher-confirms: true    #  消息发送到交换机确认机制,是否确认回调
+  rabbitmq:
+    port: 5672
+    host: 192.168.1.120
+    username: kong
+    password: 123
+    publisher-confirms: true    #  消息发送到交换机确认机制,是否确认回调
   datasource:
     name: test
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useAffectedRows=true
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
