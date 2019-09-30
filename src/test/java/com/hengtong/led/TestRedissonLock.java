@@ -5,9 +5,9 @@ import com.hengtong.led.dto.TestJsonDto;
 import com.hengtong.led.entity.FanShe;
 import com.hengtong.led.entity.User;
 import com.hengtong.led.mapper.UserMapper;
+import com.hengtong.led.utils.Md5Util;
 import com.hengtong.led.utils.RedisLockUtils;
 import com.hengtong.led.utils.RedisUtils;
-import org.apache.commons.codec.cli.Digest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.DigestUtils;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,18 +32,18 @@ public class TestRedissonLock {
     private UserMapper userMapper;
 
     @Test
-    public void testLock(){
+    public void testLock() {
         redisLockUtils.testThreadLock();
     }
 
 
     @Test
-    public void testJson(){
+    public void testJson() {
         JSONObject object = new JSONObject();
         object.put("name", "测试");
         object.put("sex", "男");
         object.put("age", 24);
-        System.out.println("object="+object);
+        System.out.println("object=" + object);
         TestJsonDto jsonDto = new TestJsonDto();
         System.out.println(jsonDto);
         jsonDto = JSONObject.parseObject(object.toString(), TestJsonDto.class);
@@ -54,7 +53,7 @@ public class TestRedissonLock {
 
 
     @Test
-    public void testAnnotation(){
+    public void testAnnotation() {
         User user = new User();
         user.setId(1);
         user.setName("name");
@@ -93,8 +92,8 @@ public class TestRedissonLock {
 
 
     @Test
-    public void testMd5(){
-        System.out.println(DigestUtils.md5DigestAsHex("chenpengfu0708".getBytes()));
+    public void testMd5() {
+        System.out.println(Md5Util.md5("admin234"));
     }
 
 }
