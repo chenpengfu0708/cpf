@@ -7,11 +7,13 @@ import com.hengtong.led.entity.User;
 import com.hengtong.led.mapper.UserMapper;
 import com.hengtong.led.utils.RedisLockUtils;
 import com.hengtong.led.utils.RedisUtils;
+import org.apache.commons.codec.cli.Digest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.DigestUtils;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -89,5 +91,10 @@ public class TestRedissonLock {
         }
     }
 
+
+    @Test
+    public void testMd5(){
+        System.out.println(DigestUtils.md5DigestAsHex("chenpengfu0708".getBytes()));
+    }
 
 }
