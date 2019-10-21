@@ -220,7 +220,7 @@ public class ReportService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info("" + e);
             throw new BusinessRuntimeException(1, "数据格式错误:行:" + (rowNum + 1) + "；列:" + (ft.getTemplateColumn() + 1));
         }
         return data;
