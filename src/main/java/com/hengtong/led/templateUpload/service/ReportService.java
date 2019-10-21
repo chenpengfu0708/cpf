@@ -33,9 +33,9 @@ import net.sf.json.JSONArray;
 @Slf4j
 public class ReportService {
 
-    private static final String YYYYMMDD_1 = "YYYY/MM/dd";
+    private static final String YYYYMMDD_1 = "yyyy/MM/dd";
 
-    private static final String YYYYMMDD_2 = "YYYY-MM-dd";
+    private static final String YYYYMMDD_2 = "yyyy-MM-dd";
 
     private static final String YYYYMMDD_3 = "yyyy.MM.dd";
 
