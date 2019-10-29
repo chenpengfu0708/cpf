@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class User {
     private Integer id;
+
     private String name;
 
     @MyTest(maxSize = 10, message = "年龄太大")
