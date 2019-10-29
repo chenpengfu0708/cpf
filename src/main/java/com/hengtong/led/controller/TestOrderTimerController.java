@@ -27,14 +27,16 @@ public class TestOrderTimerController {
     @GetMapping("/saveOrder")
     @ResponseBody
     public Integer saveOrder(){
-        Integer time = 30 * 1000;
-        Order order = new Order();
-        order.setName("订单1");
-        order.setStatus(OrderStatusEnum.NO_PAY.name());
-        order.setCreateTime(new Date());
-        testOrderTimerService.saveOrder(order);
-        orderTimer.checkOrder(order.getId(), time.longValue());
-        return order.getId();
+        for (int i = 0; i < 100000; i++) {
+            Integer time = 30 * 1000;
+            Order order = new Order();
+            order.setName("订单" + i);
+            order.setStatus(OrderStatusEnum.NO_PAY.name());
+            order.setCreateTime(new Date());
+            testOrderTimerService.saveOrder(order);
+            orderTimer.checkOrder(order.getId(), time.longValue());
+        }
+        return 0;
     }
 
 

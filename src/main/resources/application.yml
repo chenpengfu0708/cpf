@@ -34,5 +34,13 @@ rocketmq:
   secretKey: xxx
   onsAddr: xxx  #生产者TCP接入域名
 
+##上传文件的路径
+upload:
+  server: http://ip地址:端口 #服务器地址
+  headImg:
+    path: /data/app/file/
+  imageUrlPrefix: /data/app/file/
+file.path: /data/app/file/
+
 
 
