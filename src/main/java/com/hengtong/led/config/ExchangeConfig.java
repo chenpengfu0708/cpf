@@ -10,8 +10,9 @@ public class ExchangeConfig {
 
     @Bean
     public DirectExchange directExchange(){
-        DirectExchange directExchange = new DirectExchange(RabbitMqConfig.EXCHANGE,true,false);
-        return directExchange;
+//        DirectExchange directExchange = new DirectExchange(RabbitMqConfig.EXCHANGE,true,false);
+//        return directExchange;
+        return null;
     }
 
 

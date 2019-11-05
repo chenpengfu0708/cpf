@@ -9,10 +9,13 @@ import com.hengtong.led.templateUpload.entity.TemplateData;
 import com.hengtong.led.templateUpload.enu.ReportFileType;
 import com.hengtong.led.templateUpload.repository.TemplateDataRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.POIXMLDocument;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -21,6 +24,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PushbackInputStream;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -79,12 +85,14 @@ public class ReportService {
             } else if (workbook instanceof HSSFWorkbook) {
                 formulaEvaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
-
+            System.out.println("cell = " + workbook.getSheetAt(0).getRow(0).getCell(0));
         } catch (Exception e) {
+            e.printStackTrace();
 //            throw new BusinessRuntimeException(ErrorCode.DATA_REPORT_ERROR);
         }
 
         if (workbook == null) {
+            System.out.println("workbook == null");
 //            throw new BusinessRuntimeException(ErrorCode.REPORT_FILE_FORMAT_ERROR);
         }
 

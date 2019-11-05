@@ -42,5 +42,10 @@ upload:
   imageUrlPrefix: /data/app/file/
 file.path: /data/app/file/
 
+##配置注入
+testcon:
+  name: 测试配置注入
+  address: 测试注入地址
+
 
 
