@@ -13,7 +13,7 @@ import lombok.Data;
 @MyTable(table = "user", otherName = "u")
 @MyLeftJoin(mainTableOtherName = {"u","o"}, mainTableColumnName = {"id","id"}, leftJoinTable = {"order","order_content"},
         leftJoinTableOtherName = {"o","oc"}, leftJoinTableColumnName = {"user_id","order_id"})
-public class MapPhotoRequest {
+public class LeftJoinRequest {
 
     @MyWhere(tableOtherName = "u", columnName = "name", isLike = true)
     private String name;
