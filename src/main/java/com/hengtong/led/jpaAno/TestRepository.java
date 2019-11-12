@@ -15,7 +15,9 @@ import javax.persistence.Query;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Component
@@ -51,7 +53,7 @@ public class TestRepository<T, S> {
         getWhereStr(declaredFields, selectStr, countStr, t);
 
         //构造排序
-        getOrder();
+        getOrder(fields, selectStr);
 
         Query selectQuery = em.createNativeQuery(selectStr.toString());
         Query countQuery = em.createNativeQuery(countStr.toString());
@@ -149,7 +151,6 @@ public class TestRepository<T, S> {
                 e.printStackTrace();
             }
             if (StringUtils.isNotBlank(queryParam)) {
-                Annotation[] annotations = fields[i].getDeclaredAnnotations();
                 if (fields[i].isAnnotationPresent(MyWhere.class)) {
                     MyWhere result = fields[i].getAnnotation(MyWhere.class);
                     str.append(" and " + result.tableOtherName() + "." + result.columnName());
@@ -177,8 +178,23 @@ public class TestRepository<T, S> {
     /**
      * 构造排序
      */
-    private void getOrder() {
-
+    private void getOrder(Field[] fields, StringBuilder selectStr) {
+        Map<Integer, String> numMap = new HashMap<>();
+        for (int i = 0; i < fields.length; i++) {
+            if (fields[i].isAnnotationPresent(MyOrder.class)) {
+                MyOrder result = fields[i].getAnnotation(MyOrder.class);
+                numMap.put(result.num(), fields[i].getName() + " " + result.order().name() + ",");
+            }
+        }
+        if (numMap.size() > 0) {
+            selectStr.append(" order by ");
+        }
+        for (Integer order : numMap.keySet()) {
+            selectStr.append(numMap.get(order));
+        }
+        if (numMap.size() > 0) {
+            selectStr.deleteCharAt(selectStr.length() - 1);
+        }
     }
 
 }

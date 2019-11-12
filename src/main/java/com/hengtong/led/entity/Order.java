@@ -1,7 +1,9 @@
 package com.hengtong.led.entity;
 
 import com.hengtong.led.jpaAno.annotation.MyIgnore;
+import com.hengtong.led.jpaAno.annotation.MyOrder;
 import com.hengtong.led.jpaAno.annotation.MyResult;
+import com.hengtong.led.jpaAno.enu.OrderByEnum;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,6 +12,7 @@ import java.util.Date;
 public class Order {
 
     @MyResult(table = "u", name = "id")
+    @MyOrder(order = OrderByEnum.ASC)
     private Integer id;
 
     private Integer userId;
@@ -21,6 +24,7 @@ public class Order {
     private String status;
 
     @MyResult(table = "oc", name = "name")
+    @MyOrder(order = OrderByEnum.ASC)
     private String orderContent;
 
     @MyResult(table = "o", name = "create_time")

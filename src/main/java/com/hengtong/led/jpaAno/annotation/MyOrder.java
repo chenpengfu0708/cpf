@@ -1,5 +1,7 @@
 package com.hengtong.led.jpaAno.annotation;
 
+import com.hengtong.led.jpaAno.enu.OrderByEnum;
+
 import java.lang.annotation.*;
 
 /**
@@ -10,11 +12,8 @@ import java.lang.annotation.*;
 @Documented
 public @interface MyOrder {
 
-    String tableOtherName() default "";
+    OrderByEnum order() default OrderByEnum.DESC;
 
-    String columnName() default "";
-
-    boolean isASC() default false;
-
-    boolean isDESC() default true;
+    /**排序优先级 0最高 1次之 以此类推*/
+    int num() default 0;
 }
