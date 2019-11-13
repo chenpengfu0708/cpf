@@ -25,7 +25,7 @@ public class MyJpaAnoController<T> {
     public MyResultDto test(@RequestBody LeftJoinRequest request){
         System.out.println(request);
         PageParam pageParam = new PageParam();
-        return testRepository.test(request, new Order(), pageParam);
+        return testRepository.test(new Order(), request, pageParam);
     }
 
 }

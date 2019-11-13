@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -21,46 +20,49 @@ import java.util.Map;
 
 
 @Component
-public class TestRepository<T, S> {
+public class TestRepository<R, S> {
 
     @PersistenceContext
     private EntityManager em;
 
 
     /**
-     * @param t:入参
+     * @param r:入参
      * @param s:响应
      */
-    public MyResultDto test(T t, S s, PageParam pageParam) {
+    public MyResultDto test(S s, R r, PageParam pageParam) {
         MyResultDto resultDto = new MyResultDto();
         StringBuilder selectStr = new StringBuilder();
         StringBuilder countStr = new StringBuilder("select count(*)");
 
-        Class object = s.getClass();
-        Class tClass = t.getClass();
+        Class resultClass = s.getClass();
+        Class requestClass = r.getClass();
 
-        Field[] fields = object.getDeclaredFields();
+        Field[] resultFields = resultClass.getDeclaredFields();
 
         //构造响应返回参数
-        selectStr.append(getResultStr(fields));
+        selectStr.append(getResultStr(resultFields));
 
-        Field[] declaredFields = tClass.getDeclaredFields();
+        Field[] requestFields = requestClass.getDeclaredFields();
 
         //构造联表语句
-        getLeftJoinStr(selectStr, countStr, tClass);
+        getLeftJoinStr(selectStr, countStr, requestClass);
 
         //构造条件语句
-        getWhereStr(declaredFields, selectStr, countStr, t);
+        getWhereStr(requestFields, selectStr, countStr, r);
 
         //构造排序
-        getOrder(fields, selectStr);
+        getOrder(resultFields, selectStr);
+
+        //构造分页
+        getPage(pageParam, selectStr);
 
         Query selectQuery = em.createNativeQuery(selectStr.toString());
         Query countQuery = em.createNativeQuery(countStr.toString());
         System.out.println(selectStr);
         System.out.println(countStr);
         selectQuery.unwrap(NativeQuery.class)
-                .setResultTransformer(new AliasToBeanResultTransformer(object));
+                .setResultTransformer(new AliasToBeanResultTransformer(resultClass));
         Long total = ((BigInteger) countQuery.getSingleResult()).longValue();
         resultDto.setData((List<S>) selectQuery.getResultList());
         resultDto.setTotal(total);
@@ -115,10 +117,10 @@ public class TestRepository<T, S> {
     /**
      * 构造联表语句
      */
-    private void getLeftJoinStr(StringBuilder selectStr, StringBuilder countStr, Class tClass) {
+    private void getLeftJoinStr(StringBuilder selectStr, StringBuilder countStr, Class requestClass) {
         StringBuilder str = new StringBuilder();
-        MyTable param = (MyTable) tClass.getAnnotation(MyTable.class);
-        MyLeftJoin leftJoins = (MyLeftJoin) tClass.getAnnotation(MyLeftJoin.class);
+        MyTable param = (MyTable) requestClass.getAnnotation(MyTable.class);
+        MyLeftJoin leftJoins = (MyLeftJoin) requestClass.getAnnotation(MyLeftJoin.class);
         str.append(" from `" + param.table() + "` " + param.otherName());
 
         for (int i = 0; i < leftJoins.mainTableOtherName().length; i++) {
@@ -135,15 +137,15 @@ public class TestRepository<T, S> {
     /**
      * 构造条件查询语句
      */
-    private void getWhereStr(Field[] fields, StringBuilder selectStr, StringBuilder countStr, T t) {
+    private void getWhereStr(Field[] requestFields, StringBuilder selectStr, StringBuilder countStr, R t) {
         StringBuilder str = new StringBuilder();
         str.append(" where 1=1 ");
 
-        for (int i = 0; i < fields.length; i++) {
+        for (int i = 0; i < requestFields.length; i++) {
             String queryParam = "";
             try {
-                fields[i].setAccessible(true);
-                Object value = fields[i].get(t);
+                requestFields[i].setAccessible(true);
+                Object value = requestFields[i].get(t);
                 if (value != null) {
                     queryParam = value.toString();
                 }
@@ -151,8 +153,8 @@ public class TestRepository<T, S> {
                 e.printStackTrace();
             }
             if (StringUtils.isNotBlank(queryParam)) {
-                if (fields[i].isAnnotationPresent(MyWhere.class)) {
-                    MyWhere result = fields[i].getAnnotation(MyWhere.class);
+                if (requestFields[i].isAnnotationPresent(MyWhere.class)) {
+                    MyWhere result = requestFields[i].getAnnotation(MyWhere.class);
                     str.append(" and " + result.tableOtherName() + "." + result.columnName());
                     if (result.isLike()) {
                         str.append(" like '%" + queryParam + "%' ");
@@ -195,6 +197,14 @@ public class TestRepository<T, S> {
         if (numMap.size() > 0) {
             selectStr.deleteCharAt(selectStr.length() - 1);
         }
+    }
+
+
+    /**
+     * 构造分页
+     */
+    public void getPage(PageParam pageParam, StringBuilder selectStr) {
+        selectStr.append(" limit " + pageParam.getPageOffSet() + "," + pageParam.getCount());
     }
 
 }
