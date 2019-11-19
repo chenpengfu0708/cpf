@@ -47,5 +47,9 @@ testcon:
   name: 测试配置注入
   address: 测试注入地址
 
+wx:
+  appId: wx39846f4445696689       #appid
+  secret: ef363dc26599d54365b81013a83d6589          #密钥
+
 
 

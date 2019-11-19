@@ -21,4 +21,6 @@ public @interface MyWhere {
 
     boolean isLessThanEqual() default false;
 
+    String where();
+
 }

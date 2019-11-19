@@ -177,6 +177,14 @@
         </dependency>
 
 
+        <!-- 微信httpclient 获取用户 openId-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+
+
 
     </dependencies>
 

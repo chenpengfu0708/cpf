@@ -204,7 +204,9 @@ public class TestRepository<R, S> {
      * 构造分页
      */
     public void getPage(PageParam pageParam, StringBuilder selectStr) {
-        selectStr.append(" limit " + pageParam.getPageOffSet() + "," + pageParam.getCount());
+        if (pageParam != null) {
+            selectStr.append(" limit " + pageParam.getPageOffSet() + "," + pageParam.getCount());
+        }
     }
 
 }

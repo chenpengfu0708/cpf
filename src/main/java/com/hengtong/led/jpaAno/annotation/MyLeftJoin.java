@@ -25,4 +25,6 @@ public @interface MyLeftJoin {
     /**关联的表的列名*/
     String[] leftJoinTableColumnName();
 
+    String leftJoin();
+
 }
