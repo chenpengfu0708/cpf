@@ -1,12 +1,14 @@
 package com.hengtong.led.redisLockService;
 
 import com.hengtong.led.utils.RedisUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Slf4j
 public class RedisLockService {
 
     @Autowired
@@ -30,7 +32,7 @@ public class RedisLockService {
                     TimeUnit.MILLISECONDS.sleep(10L);
                     locked = tryLock(key, time - 0.01);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    log.error("线程沉睡异常" + e);
                 }
             }
         }

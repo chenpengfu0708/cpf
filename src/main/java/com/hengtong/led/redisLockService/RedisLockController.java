@@ -1,6 +1,7 @@
 package com.hengtong.led.redisLockService;
 
 import com.hengtong.led.utils.RedisUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.concurrent.TimeUnit;
 
 @RestController
+@Slf4j
 public class RedisLockController {
 
     @Autowired
@@ -30,7 +32,7 @@ public class RedisLockController {
         return 0;
     }
 
-//    @GetMapping(value = "/redisLockByTime")
+    //    @GetMapping(value = "/redisLockByTime")
     public String redisLockByTime(String name) {
         boolean locked = redisLockService.tryLock("redisLockByTime", 3D);
         if (locked) {
@@ -41,7 +43,7 @@ public class RedisLockController {
                 redisLockService.unLock("redisLockByTime");
                 System.out.println(name + "释放锁");
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("线程沉睡异常" + e);
             }
             return name + "抢到了";
         } else {
