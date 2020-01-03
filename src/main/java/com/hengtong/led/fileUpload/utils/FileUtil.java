@@ -1,7 +1,7 @@
 package com.hengtong.led.fileUpload.utils;
 
 import com.hengtong.led.excetion.BusinessRuntimeException;
-import com.hengtong.led.excetion.CommonErrorCode;
+import com.hengtong.led.CommonErrorCode;
 import com.hengtong.led.fileUpload.dto.FileUploadResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,5 +1,7 @@
 package com.hengtong.led.excetion;
 
+import com.hengtong.led.CommonErrorCode;
+
 /**
  * 统一异常定义
  * 

@@ -11,6 +11,8 @@ public class CommonResponseDto implements Serializable {
 
     private boolean success;
 
+    private String message;
+
     public CommonResponseDto code(Integer code){
         this.code = code;
         return this;
@@ -18,6 +20,11 @@ public class CommonResponseDto implements Serializable {
 
     public CommonResponseDto success(boolean success){
         this.success = success;
+        return this;
+    }
+
+    public CommonResponseDto success(String message){
+        this.message = message;
         return this;
     }
 }

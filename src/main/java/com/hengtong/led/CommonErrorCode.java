@@ -1,4 +1,4 @@
-package com.hengtong.led.excetion;
+package com.hengtong.led;
 
 /**
  * 错误码
@@ -23,6 +23,8 @@ public class CommonErrorCode {
     public static final CommonErrorCode DATA_REPORT_ERROR = new CommonErrorCode(1008, "文件上传错误");
 
     public static final CommonErrorCode FILE_EXPORT_ERROR = new CommonErrorCode(1008, "文件导出错误");
+
+    public static final CommonErrorCode USER_MUST_LOGNIN = new CommonErrorCode(1009, "用户还没有登录，请登录");
 
 
     public CommonErrorCode(int code, String message) {
