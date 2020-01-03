@@ -25,22 +25,29 @@ public class RedisLockController {
             new Thread() {
                 @Override
                 public void run() {
-                    System.out.println(redisLockByTime(this.getName()));
+                    System.out.println(redisLockByTime(this.getName(), "redisLockByTime", 3D));
                 }
             }.start();
         }
         return 0;
     }
 
-    //    @GetMapping(value = "/redisLockByTime")
-    public String redisLockByTime(String name) {
-        boolean locked = redisLockService.tryLock("redisLockByTime", 3D);
+
+    /**
+     * 轮询争抢锁操作
+     *
+     * @param name : 线程名称（可去掉）
+     * @param key  : 需要加锁的key
+     * @param time : 争抢总时间
+     */
+    public String redisLockByTime(String name, String key, Double time) {
+        boolean locked = redisLockService.tryLock(key, time);
         if (locked) {
             System.out.println(name + "抢到了。。。");
             try {
                 //模拟业务耗时 400 毫秒
                 TimeUnit.MILLISECONDS.sleep(400);
-                redisLockService.unLock("redisLockByTime");
+                redisLockService.unLock(key);
                 System.out.println(name + "释放锁");
             } catch (InterruptedException e) {
                 log.error("线程沉睡异常" + e);
@@ -52,6 +59,10 @@ public class RedisLockController {
         }
     }
 
+
+    /**
+     *
+     */
     public void tryLock(String name) {
         String key = "redisKey";
         boolean locked = redisUtils.tryLock(key, 5L, TimeUnit.SECONDS);
