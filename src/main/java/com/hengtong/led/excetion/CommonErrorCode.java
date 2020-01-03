@@ -22,6 +22,8 @@ public class CommonErrorCode {
 
     public static final CommonErrorCode DATA_REPORT_ERROR = new CommonErrorCode(1008, "文件上传错误");
 
+    public static final CommonErrorCode FILE_EXPORT_ERROR = new CommonErrorCode(1008, "文件导出错误");
+
 
     public CommonErrorCode(int code, String message) {
         this.code = code;

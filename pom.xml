@@ -177,7 +177,7 @@
         </dependency>
 
 
-        <!-- 微信httpclient 获取用户 openId-->
+        <!-- httpclient-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>

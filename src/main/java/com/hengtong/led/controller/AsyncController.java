@@ -16,7 +16,7 @@ public class AsyncController {
     @GetMapping("/async")
     @ResponseBody
     public int async(String name, Integer time){
-        asyncUtils.timer();
+        asyncUtils.schedule(5);
         return 0;
     }
 
