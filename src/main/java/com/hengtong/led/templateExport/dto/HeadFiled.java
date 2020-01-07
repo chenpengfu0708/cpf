@@ -11,4 +11,14 @@ public class HeadFiled {
 
     private Integer columnWidth;
 
+    private String isMergeCell;
+
+    private Integer firstRow;
+
+    private Integer lastRow;
+
+    private Integer firstCol;
+
+    private Integer lastCol;
+
 }

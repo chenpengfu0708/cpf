@@ -1,3 +1,20 @@
 通用Excel导出功能：
     在数据库中定义了文件导出模板
     通过反射实现各行各列的值的赋值
+
+
+
+SQL:
+
+CREATE TABLE `export_template_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entity_object` varchar(255) NOT NULL COMMENT '实体',
+  `head_start_row` int(4) NOT NULL DEFAULT '0' COMMENT '表头开始行（从0开始数）',
+  `head_filed` json DEFAULT NULL COMMENT '表头',
+  `data_start_row` int(4) NOT NULL DEFAULT '1' COMMENT '数据开始行（从0开始数）',
+  `data_field` json DEFAULT NULL COMMENT '数据',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `export_template_data`(`id`, `entity_object`, `head_start_row`, `head_filed`, `data_start_row`, `data_field`) VALUES (1, 'firstTest', 0, '[{\"value\": \"姓名\", \"lastCol\": 1, \"lastRow\": 1, \"firstCol\": 0, \"firstRow\": 0, \"columnWidth\": 10, \"isMergeCell\": \"是\", \"templateColumn\": 0}, {\"value\": \"年龄\", \"lastCol\": 2, \"lastRow\": 1, \"firstCol\": 2, \"firstRow\": 0, \"columnWidth\": 10, \"isMergeCell\": \"是\", \"templateColumn\": 2}, {\"value\": \"生日\", \"lastCol\": 3, \"lastRow\": 1, \"firstCol\": 3, \"firstRow\": 0, \"columnWidth\": 20, \"isMergeCell\": \"是\", \"templateColumn\": 3}]', 2, '[{\"isTime\": \"否\", \"lastCol\": 1, \"pattern\": \"\", \"firstCol\": 0, \"fieldName\": \"name\", \"isMergeCell\": \"是\", \"templateColumn\": 0}, {\"isTime\": \"否\", \"lastCol\": 0, \"pattern\": \"\", \"firstCol\": 0, \"fieldName\": \"age\", \"isMergeCell\": \"否\", \"templateColumn\": 2}, {\"isTime\": \"是\", \"lastCol\": 0, \"pattern\": \"yyyy-MM-dd HH:mm:ss\", \"firstCol\": 0, \"fieldName\": \"birthday\", \"isMergeCell\": \"否\", \"templateColumn\": 3}]');
+

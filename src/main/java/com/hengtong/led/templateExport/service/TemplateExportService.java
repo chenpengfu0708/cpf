@@ -1,15 +1,18 @@
 package com.hengtong.led.templateExport.service;
 
 import com.alibaba.fastjson.JSON;
-import com.hengtong.led.excetion.BusinessRuntimeException;
 import com.hengtong.led.CommonErrorCode;
+import com.hengtong.led.excetion.BusinessRuntimeException;
 import com.hengtong.led.templateExport.dto.DataField;
 import com.hengtong.led.templateExport.dto.FirstTest;
 import com.hengtong.led.templateExport.dto.HeadFiled;
 import com.hengtong.led.templateExport.entity.ExportTemplateData;
 import com.hengtong.led.templateExport.repository.ExportTemplateDataRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,15 +41,18 @@ public class TemplateExportService {
         Long fileName = new Date().getTime();
         servletResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName.toString() + ".xlsx");
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet();
         XSSFCellStyle cellStyle = (XSSFCellStyle) workbook.createCellStyle();
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        XSSFSheet sheet = workbook.createSheet();
+        CellStyle cellstyle = workbook.createCellStyle();
+        cellstyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellstyle.setAlignment(HorizontalAlignment.CENTER);
 
         ExportTemplateData templateData = exportTemplateDataRepository.findByEntityObject("firstTest");
 
         List<HeadFiled> headFiledList = JSON.parseArray(templateData.getHeadFiled(), HeadFiled.class);
 
-        createHeadRow(sheet, headFiledList, templateData.getHeadStartRow());
+        createHeadRow(sheet, headFiledList, templateData.getHeadStartRow(), cellstyle);
 
         List<FirstTest> dataList = new ArrayList<>();
         dataList.add(new FirstTest("测试1", 20, new Date()));
@@ -55,7 +61,7 @@ public class TemplateExportService {
 
         List<DataField> dataFieldList = JSON.parseArray(templateData.getDataField(), DataField.class);
 
-        createDataRow(sheet, dataList, templateData.getDataStartRow(), dataFieldList);
+        createDataRow(sheet, dataList, templateData.getDataStartRow(), dataFieldList, cellStyle);
 
         try {
             workbook.write(servletResponse.getOutputStream());
@@ -70,12 +76,18 @@ public class TemplateExportService {
     /**
      * 生成表头
      */
-    public static void createHeadRow(XSSFSheet sheet, List<HeadFiled> headList, Integer startRow) {
+    public static void createHeadRow(XSSFSheet sheet, List<HeadFiled> headList, Integer startRow, CellStyle cellstyle) {
         XSSFRow row = sheet.createRow(startRow);
         for (HeadFiled filed : headList) {
+            if (filed.getIsMergeCell().equals("是")) {
+                CellRangeAddress cellRangeAddress = new CellRangeAddress(filed.getFirstRow(), filed.getLastRow(),
+                        filed.getFirstCol(), filed.getLastCol());
+                sheet.addMergedRegion(cellRangeAddress);
+            }
             XSSFCell cell = row.createCell(filed.getTemplateColumn());
             cell.setCellValue(filed.getValue());
-            sheet.setColumnWidth(filed.getTemplateColumn(), 256 * filed.getColumnWidth() +184);
+            cell.setCellStyle(cellstyle);
+            sheet.setColumnWidth(filed.getTemplateColumn(), 256 * filed.getColumnWidth() + 184);
         }
     }
 
@@ -83,15 +95,22 @@ public class TemplateExportService {
     /**
      * 生成数据
      */
-    public <T> void createDataRow(XSSFSheet sheet, List<T> dataList, Integer startRow, List<DataField> dataFieldList) {
+    public <T> void createDataRow(XSSFSheet sheet, List<T> dataList, Integer startRow, List<DataField> dataFieldList,
+                                  CellStyle cellstyle) {
         for (T t : dataList) {
-            XSSFRow row = sheet.createRow(startRow++);
+            XSSFRow row = sheet.createRow(startRow);
             for (DataField dataField : dataFieldList) {
+                if (dataField.getIsMergeCell().equals("是")) {
+                    CellRangeAddress cellRangeAddress = new CellRangeAddress(startRow, startRow,
+                            dataField.getFirstCol(), dataField.getLastCol());
+                    sheet.addMergedRegion(cellRangeAddress);
+                }
                 for (Field field : t.getClass().getDeclaredFields()) {
                     if (field.getName().equals(dataField.getFieldName())) {
                         try {
                             field.setAccessible(true);
                             XSSFCell cell = row.createCell(dataField.getTemplateColumn());
+                            cell.setCellStyle(cellstyle);
                             Object value = field.get(t);
                             if (dataField.getIsTime().equals("是")) {
                                 Date date = (Date) value;
@@ -107,6 +126,7 @@ public class TemplateExportService {
                     }
                 }
             }
+            startRow += 1;
         }
 
     }
