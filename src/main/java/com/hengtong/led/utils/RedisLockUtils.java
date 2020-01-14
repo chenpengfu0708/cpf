@@ -16,12 +16,16 @@ public class RedisLockUtils {
     private static int num1 = 0;
 
 
-    public void lock(String key, String num){
+    /**
+     * @param key : key
+     * @param num : 线程名称，可以不要
+     */
+    public void lock(String key, String num) {
         RLock lock = redisson.getLock(key);
         boolean locked = false;
-        try{
+        try {
             locked = lock.tryLock(10, TimeUnit.SECONDS);
-            if (locked){
+            if (locked) {
                 num1++;
                 //开始写业务
                 System.out.println(num + "锁住了。。。");
@@ -31,16 +35,16 @@ public class RedisLockUtils {
             } else {
                 System.out.println(num + "没锁住。。。");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (locked){
-                try{
+            if (locked) {
+                try {
                     System.out.println(num + "释放锁");
                     System.out.println(num1);
                     System.out.println();
                     lock.unlock();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -48,12 +52,15 @@ public class RedisLockUtils {
     }
 
 
-    public void testThreadLock(){
+    /**
+     * 模拟100个线程争抢key操作
+     */
+    public void testThreadLock() {
         String key = "threadLock";
-        for (int i=1; i<100; i++){
-            new Thread(){
+        for (int i = 1; i < 100; i++) {
+            new Thread() {
                 @Override
-                public void run(){
+                public void run() {
                     lock("test", this.getName());
                 }
             }.start();

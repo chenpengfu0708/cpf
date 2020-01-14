@@ -184,6 +184,13 @@
             <version>4.3.1</version>
         </dependency>
 
+<!--        minio分布式文件系统依赖-->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>3.0.10</version>
+        </dependency>
+
 
 
     </dependencies>

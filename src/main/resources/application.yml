@@ -51,5 +51,13 @@ wx:
   appId: wx39846f4445696689       #appid
   secret: ef363dc26599d54365b81013a83d6589          #密钥
 
+# minio分布式文件系统
+minio:
+  url: http://192.168.2.140
+  post: 9000
+  accessKey: root
+  secretKey: root123456
+  bucketName: test
+
 
 
