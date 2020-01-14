@@ -57,7 +57,7 @@ minio:
   post: 9000
   accessKey: root
   secretKey: root123456
-  bucketName: test
+  bucketName: test2
 
 
 
