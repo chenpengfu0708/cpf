@@ -25,4 +25,11 @@ public class DataField {
      */
     private Integer templateColumn;
 
+
+    private String isMergeCell;
+
+    private Integer firstCol;
+
+    private Integer lastCol;
+
 }

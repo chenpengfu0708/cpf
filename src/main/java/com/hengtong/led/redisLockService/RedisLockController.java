@@ -21,11 +21,11 @@ public class RedisLockController {
 
     @GetMapping(value = "/redisLockTest")
     public Integer redisLockTest() {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 1000; i++) {
             new Thread() {
                 @Override
                 public void run() {
-                    System.out.println(redisLockByTime(this.getName(), "redisLockByTime", 3D));
+                    System.out.println(redisLockByTime(this.getName(), "redisLockByTime", 5D));
                 }
             }.start();
         }
