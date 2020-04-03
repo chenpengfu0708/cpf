@@ -29,7 +29,7 @@ public class HandlerBeanFactory implements ApplicationContextAware {
      * @param key
      * @return
      */
-    public  <T> Optional<TestFactoryService> getHandler(String key, Class<T> clz) throws InstantiationException, IllegalAccessException {
+    public <T> Optional<TestFactoryService> getHandler(String key, Class<T> clz) {
         T obj;
         try {
             obj = clz.cast(applicationContext.getBean(key));
@@ -48,19 +48,14 @@ public class HandlerBeanFactory implements ApplicationContextAware {
      *
      * @param key
      * @param handlerClz
-     * @throws IllegalAccessException
-     * @throws InstantiationException
      */
-    protected void newHandler(String key, Class handlerClz) throws IllegalAccessException, InstantiationException {
+    protected void newHandler(String key, Class handlerClz) {
 
         BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(handlerClz);
-//        for (Object arg : args) {
-//            beanDefinitionBuilder.addConstructorArgValue(arg);
-//        }
+
         BeanDefinition beanDefinition = beanDefinitionBuilder.getRawBeanDefinition();
 
         BeanDefinitionRegistry beanFactory = (BeanDefinitionRegistry) ((ConfigurableApplicationContext) applicationContext).getBeanFactory();
         beanFactory.registerBeanDefinition(key, beanDefinition);
-//        return applicationContext.getBean(key, handlerClz);
     }
 }

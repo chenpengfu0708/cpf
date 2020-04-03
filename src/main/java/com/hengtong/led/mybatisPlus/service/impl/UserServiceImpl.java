@@ -1,17 +1,14 @@
 package com.hengtong.led.mybatisPlus.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hengtong.led.dto.FindUserRequestDto;
 import com.hengtong.led.mybatisPlus.entity.User;
 import com.hengtong.led.mybatisPlus.mapper.UserMapper;
 import com.hengtong.led.mybatisPlus.mapper.UserMapperImpl;
 import com.hengtong.led.mybatisPlus.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Wrapper;
 import java.util.List;
 
 /**

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service(value = "findName")
+@Service
 public class TestFactoryNameImpl implements TestFactoryService {
 
     @Autowired

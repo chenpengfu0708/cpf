@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service(value = "findEmail")
+@Service
 public class TestFactoryEmailImpl implements TestFactoryService {
 
     @Autowired

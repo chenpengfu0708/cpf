@@ -8,6 +8,7 @@ import com.hengtong.led.mybatisPlus.factory.HandlerBeanFactory;
 import com.hengtong.led.mybatisPlus.factory.HandlerFactory;
 import com.hengtong.led.mybatisPlus.service.IUserService;
 import com.hengtong.led.mybatisPlus.service.TestFactoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ import java.util.Optional;
  * @author cpf
  * @since 2020-04-03
  */
+@Slf4j
 @RestController
 @RequestMapping("/mybatisPlus/user")
 public class MybatisPlusUserController {
@@ -57,13 +59,12 @@ public class MybatisPlusUserController {
     @GetMapping(value = "/testFactory")
     public List<User> testFactory(String type) {
         HandlerDto handlerDto = handlerFactory.getFactory().get(type);
-        System.out.println(handlerDto);
         try {
             Optional<TestFactoryService> service = handlerBeanFactory.getHandler(handlerDto.getClassName(),
                     Class.forName(handlerDto.getClassName()));
             return service.get().find();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("业务辨别失败：" + e);
         }
         return null;
     }
