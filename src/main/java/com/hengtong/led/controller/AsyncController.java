@@ -31,7 +31,6 @@ public class AsyncController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("try catch 代码还能跑。。");
         return 0;
     }
 

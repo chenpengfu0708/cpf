@@ -11,4 +11,6 @@ public class User {
     @MyTest(maxSize = 10, message = "年龄太大")
     private Integer age;
 
+    private String email;
+
 }

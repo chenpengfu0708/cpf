@@ -1,5 +1,6 @@
 package com.hengtong.led.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hengtong.led.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 @Mapper
 @Repository
-public interface UserMapper {
+public interface UserMapper1 extends BaseMapper<User> {
 
     @Insert("insert into user(id,name,age) values(NULL,#{name},#{age})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")

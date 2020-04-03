@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hengtong.led.entity.TestListToMap;
 import com.hengtong.led.entity.User;
-import com.hengtong.led.mapper.UserMapper;
+import com.hengtong.led.mapper.UserMapper1;
 import com.hengtong.led.service.TeacherService;
 import com.hengtong.led.service.TestRun;
 import com.hengtong.led.service.UserService;
@@ -36,7 +36,7 @@ public class LedApplicationTests {
     @Autowired
     private Java8 java8;
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper1 userMapper1;
     @Autowired
     private RedisUtils redisUtils;
 
@@ -231,7 +231,7 @@ public class LedApplicationTests {
     @Test
     public void test(){
         List<Integer> ids = Arrays.asList(1,2,4,5);
-        List<User> userList = userMapper.getByIds(ids);
+        List<User> userList = userMapper1.getByIds(ids);
         Map<Integer, User> userMap = userList.parallelStream().collect(Collectors.toMap(User :: getId, u -> u, (u1, u2) -> u1));
         for (Integer id : ids) {
             User user = userMap.get(id);
@@ -310,7 +310,7 @@ public class LedApplicationTests {
 
     @Test
     public void t(){
-        System.out.println(userMapper.getByName("'1' or 1 = 1"));
+        System.out.println(userMapper1.getByName("'1' or 1 = 1"));
     }
 
     @Test
@@ -321,8 +321,8 @@ public class LedApplicationTests {
         List<Integer> ids = new ArrayList<>();
         ids.add(2);
         ids.add(3);
-        List<User> mapUser = userMapper.getByMap(map);
-        List<User> user = userMapper.getByIds(ids);
+        List<User> mapUser = userMapper1.getByMap(map);
+        List<User> user = userMapper1.getByIds(ids);
         System.out.println(mapUser);
         System.out.println(user);
     }

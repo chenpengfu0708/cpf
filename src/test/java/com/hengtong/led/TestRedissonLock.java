@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hengtong.led.dto.TestJsonDto;
 import com.hengtong.led.entity.FanShe;
 import com.hengtong.led.entity.User;
-import com.hengtong.led.mapper.UserMapper;
+import com.hengtong.led.mapper.UserMapper1;
 import com.hengtong.led.utils.Md5Util;
 import com.hengtong.led.utils.RedisLockUtils;
 import com.hengtong.led.utils.RedisUtils;
@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.DigestUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class TestRedissonLock {
     private RedisUtils redisUtils;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper1 userMapper1;
 
     @Test
     public void testLock() {
@@ -70,7 +69,7 @@ public class TestRedissonLock {
         TestJsonDto dto = new TestJsonDto();
         String name = "";
 
-        System.out.println(userMapper.update(1, 1));
+        System.out.println(userMapper1.update(1, 1));
 
         System.out.println("name" + name.getClass().getCanonicalName());
         for (FanShe fanShe : fanSheList) {
