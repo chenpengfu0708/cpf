@@ -16,10 +16,24 @@ import java.util.List;
  */
 public interface IUserService extends IService<User> {
 
+    /**
+     * 返回所有user
+     *
+     * @return
+     */
     List<User> findAll();
 
+    /**
+     * @param name
+     * @param age
+     * @param email
+     * @return
+     */
     Long save(String name, Integer age, String email);
 
+    /**
+     * 条件查询
+     */
     List<User> findByCondition(FindUserRequestDto request);
 
 }

@@ -4,9 +4,11 @@ package com.hengtong.led.mybatisPlus.controller;
 import com.hengtong.led.dto.FindUserRequestDto;
 import com.hengtong.led.mybatisPlus.entity.User;
 import com.hengtong.led.mybatisPlus.service.IUserService;
+import com.hengtong.led.mybatisPlus.service.TestFactoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,6 +25,9 @@ public class MybatisPlusUserController {
 
     @Autowired
     private IUserService userService;
+
+    @Resource(name = "findEmail")
+    private TestFactoryService testFactoryService;
 
     @ResponseBody
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
@@ -41,6 +46,12 @@ public class MybatisPlusUserController {
     @PostMapping(value = "/findByCondition")
     public List<User> findByCondition(@RequestBody FindUserRequestDto request) {
         return userService.findByCondition(request);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/testFactory")
+    public List<User> testFactory() {
+        return testFactoryService.find();
     }
 
 }

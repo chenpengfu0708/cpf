@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hengtong.led.dto.FindUserRequestDto;
 import com.hengtong.led.mybatisPlus.entity.User;
 import com.hengtong.led.mybatisPlus.mapper.UserMapper;
+import com.hengtong.led.mybatisPlus.mapper.UserMapperImpl;
 import com.hengtong.led.mybatisPlus.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Wrapper;
@@ -23,6 +25,9 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+    @Autowired
+    private UserMapperImpl userMapperImpl;
+
     @Override
     public List<User> findAll() {
         return this.baseMapper.selectList(null);
@@ -37,16 +42,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public List<User> findByCondition(FindUserRequestDto request) {
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotEmpty(request.getName())) {
-            userQueryWrapper.like("name", request.getName());
-        }
-        if (request.getId() != null) {
-            userQueryWrapper.eq("id", request.getId());
-        }
-        if (StringUtils.isNotEmpty(request.getEmail())) {
-            userQueryWrapper.like("email", request.getEmail());
-        }
-        return this.baseMapper.selectList(userQueryWrapper);
+        return userMapperImpl.findByCondition(request);
     }
 }
