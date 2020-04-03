@@ -59,5 +59,17 @@ minio:
   secretKey: root123456
   bucketName: test2
 
+#配置注入，用于搭建工厂者模式
+factory:
+  handler:
+    factory:
+      email:
+        name: 第一个实例
+        className: com.hengtong.led.mybatisPlus.service.impl.TestFactoryEmailImpl
+      name:
+        name: 第二个实例
+        className: com.hengtong.led.mybatisPlus.service.impl.TestFactoryNameImpl
+
+
 
 

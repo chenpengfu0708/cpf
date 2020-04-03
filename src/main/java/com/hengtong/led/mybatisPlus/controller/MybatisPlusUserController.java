@@ -2,14 +2,17 @@ package com.hengtong.led.mybatisPlus.controller;
 
 
 import com.hengtong.led.dto.FindUserRequestDto;
+import com.hengtong.led.dto.HandlerDto;
 import com.hengtong.led.mybatisPlus.entity.User;
+import com.hengtong.led.mybatisPlus.factory.HandlerBeanFactory;
+import com.hengtong.led.mybatisPlus.factory.HandlerFactory;
 import com.hengtong.led.mybatisPlus.service.IUserService;
 import com.hengtong.led.mybatisPlus.service.TestFactoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -25,9 +28,11 @@ public class MybatisPlusUserController {
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private HandlerFactory handlerFactory;
 
-    @Resource(name = "findEmail")
-    private TestFactoryService testFactoryService;
+    @Autowired
+    private HandlerBeanFactory handlerBeanFactory;
 
     @ResponseBody
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
@@ -50,8 +55,17 @@ public class MybatisPlusUserController {
 
     @ResponseBody
     @GetMapping(value = "/testFactory")
-    public List<User> testFactory() {
-        return testFactoryService.find();
+    public List<User> testFactory(String type) {
+        HandlerDto handlerDto = handlerFactory.getFactory().get(type);
+        System.out.println(handlerDto);
+        try {
+            Optional<TestFactoryService> service = handlerBeanFactory.getHandler(handlerDto.getClassName(),
+                    Class.forName(handlerDto.getClassName()));
+            return service.get().find();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
