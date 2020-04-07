@@ -44,4 +44,12 @@ public class CommonErrorCode {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return "CommonErrorCode{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

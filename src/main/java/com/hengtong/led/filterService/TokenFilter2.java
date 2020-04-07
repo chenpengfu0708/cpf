@@ -28,7 +28,12 @@ public class TokenFilter2 implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         System.out.println("第二个。。。");
-        filterChain.doFilter(servletRequest, servletResponse);
+        String str = CommonErrorCode.UNKOWN.toString();
+        System.out.println(str);
+        servletResponse.setCharacterEncoding("utf-8");
+        servletResponse.getWriter().write(str);
+        return;
+//        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     private void sendErrorResult(ServletResponse resp, CommonErrorCode errorCode) throws IOException {
