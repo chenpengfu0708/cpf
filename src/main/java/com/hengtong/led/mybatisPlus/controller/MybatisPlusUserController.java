@@ -1,8 +1,10 @@
 package com.hengtong.led.mybatisPlus.controller;
 
 
+import com.hengtong.led.CommonErrorCode;
 import com.hengtong.led.dto.FindUserRequestDto;
 import com.hengtong.led.dto.HandlerDto;
+import com.hengtong.led.exception.BusinessRuntimeException;
 import com.hengtong.led.mybatisPlus.entity.User;
 import com.hengtong.led.mybatisPlus.factory.HandlerBeanFactory;
 import com.hengtong.led.mybatisPlus.factory.HandlerFactory;
@@ -32,7 +34,6 @@ public class MybatisPlusUserController {
     private IUserService userService;
     @Autowired
     private HandlerFactory handlerFactory;
-
     @Autowired
     private HandlerBeanFactory handlerBeanFactory;
 
@@ -59,6 +60,9 @@ public class MybatisPlusUserController {
     @GetMapping(value = "/testFactory")
     public List<User> testFactory(String type) {
         HandlerDto handlerDto = handlerFactory.getFactory().get(type);
+        if (handlerDto == null) {
+            throw new BusinessRuntimeException(CommonErrorCode.SERVICE_TYPE_ERROR);
+        }
         try {
             Optional<TestFactoryService> service = handlerBeanFactory.getHandler(handlerDto.getClassName(),
                     Class.forName(handlerDto.getClassName()));

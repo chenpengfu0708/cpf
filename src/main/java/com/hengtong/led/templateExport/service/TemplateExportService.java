@@ -2,7 +2,7 @@ package com.hengtong.led.templateExport.service;
 
 import com.alibaba.fastjson.JSON;
 import com.hengtong.led.CommonErrorCode;
-import com.hengtong.led.excetion.BusinessRuntimeException;
+import com.hengtong.led.exception.BusinessRuntimeException;
 import com.hengtong.led.templateExport.dto.DataField;
 import com.hengtong.led.templateExport.dto.FirstTest;
 import com.hengtong.led.templateExport.dto.HeadFiled;

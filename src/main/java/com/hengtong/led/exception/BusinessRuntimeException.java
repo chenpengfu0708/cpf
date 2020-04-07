@@ -1,4 +1,4 @@
-package com.hengtong.led.excetion;
+package com.hengtong.led.exception;
 
 import com.hengtong.led.CommonErrorCode;
 

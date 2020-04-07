@@ -26,6 +26,8 @@ public class CommonErrorCode {
 
     public static final CommonErrorCode USER_MUST_LOGNIN = new CommonErrorCode(1009, "用户还没有登录，请登录");
 
+    public static final CommonErrorCode SERVICE_TYPE_ERROR = new CommonErrorCode(1010, "业务类型错误");
+
 
     public CommonErrorCode(int code, String message) {
         this.code = code;

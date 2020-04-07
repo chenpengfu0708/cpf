@@ -6,12 +6,14 @@ import com.hengtong.led.dto.CommonResponseDto;
 import com.hengtong.led.utils.RedisUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@Order(value = -2147483648)
 @WebFilter(filterName = "tokenFilter", urlPatterns = "/filter/*")
 public class TokenFilter implements Filter {
 
@@ -26,6 +28,7 @@ public class TokenFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest htRequest = (HttpServletRequest) servletRequest;
+        System.out.println("第一个。。。");
         String token = htRequest.getHeader("ManageUserAccessToken");
         if (StringUtils.isNotBlank(token)) {
             String key = "manageuser:token:" + token;
