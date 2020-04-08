@@ -207,7 +207,11 @@
             <artifactId>minio</artifactId>
             <version>3.0.10</version>
         </dependency>
-
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.2.5</version>
+        </dependency>
 
 
     </dependencies>
