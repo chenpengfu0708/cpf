@@ -20,7 +20,7 @@ if requestBodyHash and requestBodyHash ~= "" then
     if reSendFlag ~= 0 then
         return { 1, 0, 1 }
     else
-        redis.call("setex", requestBodyHash ,60 , 1)
+        redis.call("setex", requestBodyHash ,5 , 1)
     end
 end
 
