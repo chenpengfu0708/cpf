@@ -10,6 +10,10 @@ import cn.hutool.core.io.IoUtil;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author cpf
+ * @since 2020-04-09
+ */
 @Slf4j
 @Configuration
 public class LuaConfig {
@@ -17,10 +21,19 @@ public class LuaConfig {
     @Bean(name = "accessScript")
     public RedisScript<List> accessScript() {
         try {
-            String script = IoUtil.read(new ClassPathResource("lua/access.lua").getInputStream(), "utf-8");
-            RedisScript of = RedisScript.of(script, List.class);
-            log.info("lua/access.lua 的 sha1 值为 :{}", of.getSha1());
-            return of;
+            String script = IoUtil.read(new ClassPathResource("lua/initLp.lua").getInputStream(), "utf-8");
+            return RedisScript.of(script, List.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+
+    @Bean(name = "addLpScript")
+    public RedisScript<List> addLpScript() {
+        try {
+            String script = IoUtil.read(new ClassPathResource("lua/addLp.lua").getInputStream(), "utf-8");
+            return RedisScript.of(script, List.class);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }

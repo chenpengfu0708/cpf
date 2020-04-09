@@ -14,18 +14,14 @@ public class IpAddressUtil {
         String ipAddress = null;
         try {
             ipAddress = request.getHeader("x-forwarded-for");
-            log.info("x-forwarded-for...adress = {}", ipAddress);
             if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getHeader("Proxy-Client-IP");
-                log.info("Proxy-Client-IP...adress = {}", ipAddress);
             }
             if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getHeader("WL-Proxy-Client-IP");
-                log.info("WL-Proxy-Client-IP...adress = {}", ipAddress);
             }
             if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getRemoteAddr();
-                log.info("request.getRemoteAddr()...adress = {}", ipAddress);
             }
             // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
             if (ipAddress != null && ipAddress.length() > 15) { // "***.***.***.***".length()

@@ -70,6 +70,8 @@ factory:
         name: 第二个实例
         className: com.hengtong.led.mybatisPlus.service.impl.TestFactoryNameImpl
 
-
+#限流令牌桶
+lp:
+  key: lpKeyTest
 
 

@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cpf
+ * @since 2020-04-09
+ */
 @Slf4j
 @Service
 public class LusService {
@@ -21,15 +25,14 @@ public class LusService {
 
     /**
      * 调用控制lua 脚本
-     * @param transactionNo
-     * @param requestBodyHash
      * @return
      */
-    public List access(String transactionNo, String requestBodyHash) {
+    public List initLp(String dataHash, String lpKey, String ip) {
         List<String> keys = new ArrayList<>();
-        keys.add(transactionNo);
-        keys.add(requestBodyHash);
-        log.info("调用lua script 参数:{}",keys);
+        keys.add(dataHash);
+        keys.add(lpKey);
+        keys.add(ip);
+        keys.add(String.valueOf(System.currentTimeMillis()));
         return (List) redisTemplate.execute(accessScript, keys);
 
     }
