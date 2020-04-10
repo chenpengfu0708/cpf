@@ -30,6 +30,7 @@ end
 
 
 --2：查询ip请求总数
+-- 获取 table 的长度的时候无论是使用 # 还是 table.getn 其都会在索引中断的地方停止计数，遍历累加计算总数
 local keys = redis.call('keys', ip .. "*")  --模糊查询key
 local sum = tonumber(0)                     --该ip在缓存中的请求记录数
 for iter, value in ipairs(keys) do
