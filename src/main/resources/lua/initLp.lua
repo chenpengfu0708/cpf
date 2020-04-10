@@ -30,14 +30,17 @@ end
 
 
 --2：查询ip请求总数
--- 获取 table 的长度的时候无论是使用 # 还是 table.getn 其都会在索引中断的地方停止计数，遍历累加计算总数
 local keys = redis.call('keys', ip .. "*")  --模糊查询key
 local sum = tonumber(0)                     --该ip在缓存中的请求记录数
+local allowMaxNum = tonumber(3)             --最大的允许次数
+local timing = tonumber(10)                 --请求限制的时段 10秒内
+
+-- 获取 table 的长度的时候无论是使用 # 还是 table.getn 其都会在索引中断的地方停止计数，遍历累加计算总数
 for iter, value in ipairs(keys) do
     sum = sum + 1
 end
 -- 10秒内请求次数达到3次以上，返回ip限制标志
-if sum >= 3 then
+if sum >= allowMaxNum then
     return {0, 0, -1}
 end
 
@@ -59,10 +62,10 @@ if lp ~= 0 then
     end
 else
     maxLp = maxLp - 1
-    redis.call("setex", lpKey ,60 , 4) -- 初始化令牌桶时，拿出一个给当前请求，所以只存4个进去
+    redis.call("setex", lpKey ,60 , maxLp - 1) -- 初始化令牌桶时，拿出一个给当前请求，所以只存 maxLp - 1 个进去
 end
 --能走到这一步证明该ip设定的时间内请求次数没达到3次以上，存一个该ip的请求到缓存中
-redis.call("setex", thisIpKey, 10, 1)
+redis.call("setex", thisIpKey, timing, 1)
 return {0, maxLp, 0}  --返回剩余令牌数
 
 
