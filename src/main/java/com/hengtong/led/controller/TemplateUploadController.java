@@ -1,7 +1,5 @@
 package com.hengtong.led.controller;
 
-import com.hengtong.led.fileUpload.dto.FileUploadResponse;
-import com.hengtong.led.templateUpload.enu.ReportFileType;
 import com.hengtong.led.templateUpload.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +19,8 @@ public class TemplateUploadController {
 
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public void illegalBuildingUpload(MultipartFile file, @RequestParam String type) {
+    public Object illegalBuildingUpload(MultipartFile file, @RequestParam String type) {
         log.info("文件上传---------");
-        reportService.dataUpload(file, type);
+        return reportService.dataUpload(file, type);
     }
 }

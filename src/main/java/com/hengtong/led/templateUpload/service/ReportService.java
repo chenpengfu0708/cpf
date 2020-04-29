@@ -1,15 +1,13 @@
 package com.hengtong.led.templateUpload.service;
 
 import com.alibaba.fastjson.JSON;
-import com.aliyun.openservices.shade.org.apache.commons.lang3.StringUtils;
-import com.hengtong.led.exception.BusinessRuntimeException;
-import com.hengtong.led.templateUpload.entity.DoorplateQrcode;
 import com.hengtong.led.templateUpload.entity.FieldTemplate;
 import com.hengtong.led.templateUpload.entity.TemplateData;
 import com.hengtong.led.templateUpload.entity.ZhangDaPao;
-import com.hengtong.led.templateUpload.enu.ReportFileType;
 import com.hengtong.led.templateUpload.repository.TemplateDataRepository;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONArray;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
@@ -27,8 +25,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import net.sf.json.JSONArray;
 
 @Service
 @Slf4j
@@ -60,12 +56,12 @@ public class ReportService {
 
 
     @Transactional
-    public void dataUpload(MultipartFile file, String type) {
+    public Object dataUpload(MultipartFile file, String type) {
         log.info("数据上报------------------type:{}", type);
 
         if (file == null || file.isEmpty()) {
             log.info("上报文件为空");
-            return;
+            return null;
         }
 
         Workbook workbook = null;
@@ -73,32 +69,28 @@ public class ReportService {
         FormulaEvaluator formulaEvaluator = null;
 
         try {
-
             workbook = WorkbookFactory.create(file.getInputStream());
             if (workbook instanceof XSSFWorkbook) {
                 formulaEvaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
             } else if (workbook instanceof HSSFWorkbook) {
                 formulaEvaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
-            System.out.println("cell = " + workbook.getSheetAt(0).getRow(0).getCell(0));
         } catch (Exception e) {
             e.printStackTrace();
-//            throw new BusinessRuntimeException(ErrorCode.DATA_REPORT_ERROR);
         }
 
         if (workbook == null) {
             System.out.println("workbook == null");
-//            throw new BusinessRuntimeException(ErrorCode.REPORT_FILE_FORMAT_ERROR);
         }
 
-        dispose(workbook, type, formulaEvaluator);
+        return dispose(workbook, type, formulaEvaluator);
     }
 
 
     /**
      * 上报处理
      */
-    public void dispose(Workbook hssfWorkbook, String reportFileType, FormulaEvaluator formulaEvaluator) {
+    public Object dispose(Workbook hssfWorkbook, String reportFileType, FormulaEvaluator formulaEvaluator) {
 
         log.info("上报处理-------------reportFileType:{}", reportFileType);
 
@@ -106,16 +98,14 @@ public class ReportService {
         switch (reportFileType) {
 
             case "ZhangDaPao":
-                templateData = templateDataRepository.findByEntityObject("ZhangDaPao");
+                templateData = templateDataRepository.findByType("ZhangDaPao");
                 List<ZhangDaPao> result = addData(templateData, hssfWorkbook,
                         new ZhangDaPao(), formulaEvaluator);
                 System.out.println(result);
-                //TODO: 后期处理获取到数据列
-
-                break;
+                return result;
             default:
-//                throw new BusinessRuntimeException(ErrorCode.REPORT_FILE_FORMAT_ERROR);
         }
+        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -163,15 +153,13 @@ public class ReportService {
                              FormulaEvaluator formulaEvaluator) {
         // 校验非空
         if (ft.getIsNotNull().equals("是")) {
-            if (cell == null || StringUtils.isBlank(cell.toString())) {
-                throw new BusinessRuntimeException(1,
-                        "数据格式错误:行:" + (rowNum + 1) + "；列:" + (ft.getTemplateColumn() + 1) + "，必要数据不能为空");
+            if (cell == null || org.apache.commons.lang3.StringUtils.isBlank(cell.toString())) {
+                log.error("数据格式错误:行:" + (rowNum + 1) + "；列:" + (ft.getTemplateColumn() + 1) + "，必要数据不能为空");
             }
         }
         // 校验长度
         if (cell != null && cell.toString().length() >= ft.getFieldLong()) {
-            throw new BusinessRuntimeException(1,
-                    "数据格式错误:行:" + (rowNum + 1) + "；列:" + (ft.getTemplateColumn() + 1) + "，长度超出限制");
+            log.error("数据格式错误:行:" + (rowNum + 1) + "；列:" + (ft.getTemplateColumn() + 1) + "，长度超出限制");
         }
         try {
 
@@ -193,7 +181,7 @@ public class ReportService {
                 }
                 field.set(data, value);
             } else if (ft.getFieldType().equals("Date")) {
-                if (cell == null || StringUtils.isBlank(cell.toString())) {
+                if (cell == null || org.apache.commons.lang3.StringUtils.isBlank(cell.toString())) {
                     //Date为空时不抛出异常，set Date为null，转为实体的时候判断
                     field.set(data, null);
                 } else if (cell.getCellTypeEnum() == CellType.NUMERIC) {
@@ -222,10 +210,14 @@ public class ReportService {
                     String decimal = cell.toString().replaceAll(",", "");
                     field.set(data, new BigDecimal(decimal));
                 }
+            } else if (ft.getFieldType().equals("Integer")) {
+                // 处理 12,234.12 类型的数字
+                String decimal = cell.toString().replaceAll(",", "");
+                field.set(data, new BigDecimal(decimal).intValue());
             }
         } catch (Exception e) {
             log.info("" + e);
-            throw new BusinessRuntimeException(1, "数据格式错误:行:" + (rowNum + 1) + "；列:" + (ft.getTemplateColumn() + 1));
+            log.error("数据格式错误:行:" + (rowNum + 1) + "；列:" + (ft.getTemplateColumn() + 1));
         }
         return data;
     }

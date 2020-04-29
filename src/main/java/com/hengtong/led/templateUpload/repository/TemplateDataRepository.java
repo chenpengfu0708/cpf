@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TemplateDataRepository extends JpaRepository<TemplateData, Long> {
 
-    TemplateData findByEntityObject(String entityObject);
+    TemplateData findByType(String entityObject);
 
 }

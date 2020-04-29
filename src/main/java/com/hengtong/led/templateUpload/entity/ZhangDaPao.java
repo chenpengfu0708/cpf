@@ -13,5 +13,5 @@ public class ZhangDaPao {
 
     private String address;
 
-    private System remark;
+    private String remark;
 }

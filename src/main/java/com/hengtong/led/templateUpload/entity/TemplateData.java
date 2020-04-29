@@ -20,7 +20,7 @@ public class TemplateData {
     private Long id;
 
     /**实体对象*/
-    private String entityObject;
+    private String type;
     
     /**开始行*/
     private int startRow;
