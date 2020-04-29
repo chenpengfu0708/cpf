@@ -6,6 +6,7 @@ import com.hengtong.led.exception.BusinessRuntimeException;
 import com.hengtong.led.templateUpload.entity.DoorplateQrcode;
 import com.hengtong.led.templateUpload.entity.FieldTemplate;
 import com.hengtong.led.templateUpload.entity.TemplateData;
+import com.hengtong.led.templateUpload.entity.ZhangDaPao;
 import com.hengtong.led.templateUpload.enu.ReportFileType;
 import com.hengtong.led.templateUpload.repository.TemplateDataRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +60,7 @@ public class ReportService {
 
 
     @Transactional
-    public void dataUpload(MultipartFile file, ReportFileType type) {
+    public void dataUpload(MultipartFile file, String type) {
         log.info("数据上报------------------type:{}", type);
 
         if (file == null || file.isEmpty()) {
@@ -97,17 +98,18 @@ public class ReportService {
     /**
      * 上报处理
      */
-    public void dispose(Workbook hssfWorkbook, ReportFileType reportFileType, FormulaEvaluator formulaEvaluator) {
+    public void dispose(Workbook hssfWorkbook, String reportFileType, FormulaEvaluator formulaEvaluator) {
 
         log.info("上报处理-------------reportFileType:{}", reportFileType);
 
         TemplateData templateData = null;
         switch (reportFileType) {
 
-            case DOORPLATE_QR_CODE:
-                templateData = templateDataRepository.findByEntityObject("DOORPLATE_QR_CODE");
-                List<DoorplateQrcode> qrcodeList = addData(templateData, hssfWorkbook,
-                        new DoorplateQrcode(), formulaEvaluator);
+            case "ZhangDaPao":
+                templateData = templateDataRepository.findByEntityObject("ZhangDaPao");
+                List<ZhangDaPao> result = addData(templateData, hssfWorkbook,
+                        new ZhangDaPao(), formulaEvaluator);
+                System.out.println(result);
                 //TODO: 后期处理获取到数据列
 
                 break;

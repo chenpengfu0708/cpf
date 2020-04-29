@@ -27,7 +27,7 @@ public class AddLpSchedule {
     private String lpKey;
 
 
-    @Scheduled(cron = "*/10 * * * * ?")
+//    @Scheduled(cron = "*/10 * * * * ?")
     public void schedule() {
         System.out.println("令牌入桶任务开始，令牌key：" + lpKey);
         List<String> keys = new ArrayList<>();

@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 public class TDto<T> {
 
-    List<T> list;
+    private T result;
 }

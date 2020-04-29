@@ -21,8 +21,8 @@ public class TemplateUploadController {
 
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public void illegalBuildingUpload(MultipartFile file, @RequestParam ReportFileType reportFileType) {
+    public void illegalBuildingUpload(MultipartFile file, @RequestParam String type) {
         log.info("文件上传---------");
-        reportService.dataUpload(file, reportFileType);
+        reportService.dataUpload(file, type);
     }
 }
