@@ -30,4 +30,8 @@ public class UserService {
         response.setResult(info.getList());
         return response;
     }
+
+    public void test() {
+        throw new RuntimeException("出错啦");
+    }
 }

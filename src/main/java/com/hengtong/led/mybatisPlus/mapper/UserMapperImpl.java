@@ -7,6 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -26,6 +28,9 @@ public class UserMapperImpl {
         if (StringUtils.isNotEmpty(request.getEmail())) {
             userQueryWrapper.like("email", request.getEmail());
         }
+        Calendar cal=Calendar.getInstance();
+        cal.add(Calendar.DATE,-1);
+        userQueryWrapper.gt("create_time", cal.getTime());
         return userMapper.selectList(userQueryWrapper);
     }
 

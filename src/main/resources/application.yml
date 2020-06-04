@@ -9,7 +9,7 @@ spring:
     timeout: 1000
   rabbitmq:
     port: 5672
-    host: 192.168.1.120
+    host: localhost
     username: kong
     password: 123
     publisher-confirms: true    #  消息发送到交换机确认机制,是否确认回调

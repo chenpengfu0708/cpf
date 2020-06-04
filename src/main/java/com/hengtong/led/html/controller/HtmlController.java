@@ -17,6 +17,12 @@ public class HtmlController {
         return "test";
     }
 
+    @RequestMapping(value = "/jdan", method = RequestMethod.GET)
+    public String jdan(){
+
+        return "jdan";
+    }
+
 
     @RequestMapping(value = "/success", method = RequestMethod.GET)
     public String success(){

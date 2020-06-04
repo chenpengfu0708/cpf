@@ -1,6 +1,7 @@
 package com.hengtong.led.mybatisPlus.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -41,6 +42,8 @@ public class User implements Serializable {
      * 邮箱
      */
     private String email;
+
+    private Date createTime;
 
     public User() {}
 
