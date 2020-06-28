@@ -213,6 +213,11 @@
             <version>5.2.5</version>
         </dependency>
 
+        <!--        集成邮件发送-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 
     </dependencies>
 

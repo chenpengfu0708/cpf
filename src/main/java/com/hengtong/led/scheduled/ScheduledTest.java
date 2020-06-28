@@ -18,7 +18,7 @@ public class ScheduledTest {
      */
 
 
-    @Scheduled(cron = "*/10 * * * * ?")
+//    @Scheduled(cron = "*/10 * * * * ?")
     public void testOne() {
         log.info("第一个定时任务开始。。。。");
         try {
@@ -29,7 +29,7 @@ public class ScheduledTest {
         log.info("第一个任务结束。。。");
     }
 
-    @Scheduled(cron = "*/2 * * * * ?")
+//    @Scheduled(cron = "*/2 * * * * ?")
     public void testTwo() {
         log.info("第二个定时任务开始。。。。");
         try {
@@ -40,7 +40,7 @@ public class ScheduledTest {
         log.info("第二个任务结束。。。");
     }
 
-    @Scheduled(cron = "*/2 * * * * ?")
+//    @Scheduled(cron = "*/2 * * * * ?")
     public void testThree() {
         log.info("第三个定时任务开始。。。。");
         try {
