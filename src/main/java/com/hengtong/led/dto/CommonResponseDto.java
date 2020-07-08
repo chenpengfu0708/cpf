@@ -23,7 +23,7 @@ public class CommonResponseDto implements Serializable {
         return this;
     }
 
-    public CommonResponseDto success(String message){
+    public CommonResponseDto message(String message){
         this.message = message;
         return this;
     }
