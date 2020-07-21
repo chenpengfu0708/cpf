@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
@@ -118,6 +119,22 @@ public class RedisUtils {
     public void unLock(String key) {
         String lockKey = LOCK_KEY_PREFIX + key;
         redisTemplate.delete(lockKey);
+    }
+
+
+    /**
+     * map操作
+     */
+    public void setMap(String key, Map<String, String> map) {
+        redisTemplate.opsForHash().putAll(key, map);
+    }
+
+
+    /**
+     * 获取map操作
+     */
+    public Map<Object, Object> getMap(String key) {
+        return redisTemplate.opsForHash().entries(key);
     }
 
 }

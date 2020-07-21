@@ -1,6 +1,12 @@
 package com.hengtong.led.utils;
 
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
+
+import java.util.Date;
+
 public class TestSy {
     private static int num = 0;
 
@@ -9,11 +15,8 @@ public class TestSy {
     }
 
     public static void main(String[] args){
-        for (int i = 0; i<50; i++){
-            new Thread(){
-            }.start();
-            TestSy.add();
-        }
-
+        Date birthDay = new Date(-872582400000L);
+        int insuredAge = DateUtil.ageOfNow(birthDay);
+        System.out.println(insuredAge);
     }
 }
