@@ -17,6 +17,12 @@ public class HtmlController {
         return "test";
     }
 
+    @RequestMapping(value = "/video", method = RequestMethod.GET)
+    public String video(){
+
+        return "video";
+    }
+
     @RequestMapping(value = "/jdan", method = RequestMethod.GET)
     public String jdan(){
 

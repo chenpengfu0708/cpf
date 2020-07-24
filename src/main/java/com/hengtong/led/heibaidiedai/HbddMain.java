@@ -1,53 +1,54 @@
 package com.hengtong.led.heibaidiedai;
 
+import com.hengtong.led.utils.RedisUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class HbddMain {
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     private static final int NUM = 8;
 
     private static int[][] main = new int[8][8];
 
-    static {
+    public static int[][] initMain() {
         for (int i = 0; i < NUM; i++) {
             for (int f = 0; f < NUM; f++) {
                 main[i][f] = 0;
             }
         }
+        return main;
     }
 
-    public static void main(String[] args) {
-        sout(0, 0);
-        sout(0, 1);
-        sout(3, 4);
-        sout(3, 6);
+    public Map<String, String> sout(Integer a, Integer b, String token) {
+        int[][] myHbdd = mapToArray(token);
 
-        sout(0, 0);
-        sout(0, 1);
-        sout(3, 4);
-        sout(3, 6);
-    }
-
-    public static boolean sout(int a, int b) {
-        click(a, b, main);
+        myHbdd = click(a, b, myHbdd);
+        Map<String, String> map = new HashMap<>();
         int xy = 0;
         int numx = 0;
         for (int i = 0; i < NUM; i++) {
             for (int j = 0; j < NUM; j++) {
-                if (main[i][j] != xy) {
+                if (myHbdd[i][j] != xy) {
                     numx++;
                 }
-                System.out.print(main[i][j] + " ");
+                System.out.print(myHbdd[i][j] + " ");
+                String mapKey = "" + i + "" + j;
+                map.put(mapKey, ""+myHbdd[i][j]);
             }
             System.out.println();
         }
         if (numx == 0) {
             System.out.println("wow~完成了");
-            return true;
         }
-        System.out.println();
-        return false;
+        redisUtils.setMap(token, map);
+        return map;
     }
 
     public static int[][] click(Integer x, Integer y, int[][] main) {
@@ -73,6 +74,22 @@ public class HbddMain {
             return 1;
         } else {
             return 0;
+        }
+    }
+
+    public int[][] mapToArray(String key) {
+        Map<Object, Object> map = redisUtils.getMap(key);
+        if (map == null || map.size() == 0) {
+            return main;
+        } else {
+            int[][] result = new int[NUM][NUM];
+            for (int i = 0; i < NUM; i++) {
+                for (int j = 0; j < NUM; j++) {
+                    String mapKey = "" + i + "" + j;
+                    result[i][j] = Integer.parseInt(map.get(mapKey).toString());
+                }
+            }
+            return result;
         }
     }
 
