@@ -5,7 +5,6 @@ import com.hengtong.led.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -42,17 +41,14 @@ public class HbddMain {
                 if (myHbdd[i][j] != xy) {
                     numx++;
                 }
-                System.out.print(myHbdd[i][j] + " ");
                 String mapKey = "" + i + "" + j;
                 map.put(mapKey, "" + myHbdd[i][j]);
             }
-            System.out.println();
         }
         redisUtils.setMap(token, map);
         if (numx == 0 && a != -1) {
             redisUtils.setKey("finish_" + token, "finish", 20L, TimeUnit.MINUTES);
             redisUtils.remove(token);
-            System.out.println("wow~完成了");
         }
         return commonResponseDto.code(0).data(map);
     }
@@ -104,9 +100,7 @@ public class HbddMain {
         for (int i = 0; i < click; i++) {
             Integer x = (int)(Math.random()*8);
             Integer y = (int)(Math.random()*8);
-            System.out.println("x=" + x + ",y=" + y);
             sout(x, y, token, map, myHbdd);
-            System.out.println();
         }
     }
 
