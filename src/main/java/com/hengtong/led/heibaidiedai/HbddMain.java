@@ -1,11 +1,13 @@
 package com.hengtong.led.heibaidiedai;
 
+import com.hengtong.led.dto.CommonResponseDto;
 import com.hengtong.led.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class HbddMain {
@@ -26,11 +28,13 @@ public class HbddMain {
         return main;
     }
 
-    public Map<String, String> sout(Integer a, Integer b, String token) {
-        int[][] myHbdd = mapToArray(token);
-
-        myHbdd = click(a, b, myHbdd);
-        Map<String, String> map = new HashMap<>();
+    public CommonResponseDto sout(Integer a, Integer b, String token, Map<String, String> map, int[][] myHbdd) {
+        CommonResponseDto commonResponseDto = new CommonResponseDto();
+        if (a != -1 && b != -1) {
+            myHbdd = click(a, b, myHbdd);
+        } else {
+            sendTopic(8, token, map, myHbdd);
+        }
         int xy = 0;
         int numx = 0;
         for (int i = 0; i < NUM; i++) {
@@ -40,15 +44,17 @@ public class HbddMain {
                 }
                 System.out.print(myHbdd[i][j] + " ");
                 String mapKey = "" + i + "" + j;
-                map.put(mapKey, ""+myHbdd[i][j]);
+                map.put(mapKey, "" + myHbdd[i][j]);
             }
             System.out.println();
         }
-        if (numx == 0) {
+        redisUtils.setMap(token, map);
+        if (numx == 0 && a != -1) {
+            redisUtils.setKey("finish_" + token, "finish", 20L, TimeUnit.MINUTES);
+            redisUtils.remove(token);
             System.out.println("wow~完成了");
         }
-        redisUtils.setMap(token, map);
-        return map;
+        return commonResponseDto.code(0).data(map);
     }
 
     public static int[][] click(Integer x, Integer y, int[][] main) {
@@ -90,6 +96,17 @@ public class HbddMain {
                 }
             }
             return result;
+        }
+    }
+
+
+    public void sendTopic(Integer click, String token, Map<String, String> map, int[][] myHbdd) {
+        for (int i = 0; i < click; i++) {
+            Integer x = (int)(Math.random()*8);
+            Integer y = (int)(Math.random()*8);
+            System.out.println("x=" + x + ",y=" + y);
+            sout(x, y, token, map, myHbdd);
+            System.out.println();
         }
     }
 
