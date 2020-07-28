@@ -43,7 +43,7 @@ function change(x, y, f) {
         contentType : "application/json",
         data : data,
         async: false ,
-        url : "localhost:8888/ew/con/hbdd",
+        url : "ew/con/hbdd",
         success : function(data) {
             if (data.code === 0){
                 for (let i = 0; i < 8; i++) {
@@ -79,7 +79,7 @@ function checkStatus() {
         contentType : "application/json",
         data : data,
         async: true ,
-        url : "localhost:8888/ew/con/checkStatus",
+        url : "ew/con/checkStatus",
         success : function(data) {
             if (data.code === 0){
                 if (data.finish === 1) {
