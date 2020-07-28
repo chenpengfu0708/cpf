@@ -33,7 +33,7 @@ public class SWHbddMain {
             click(plane, x, y, myHbddMap);
         } else {
             //初始化出题
-            sendTopic(3, token, myHbddMap);
+            sendTopic(5, token, myHbddMap);
         }
         return commonResponseDto.code(0).data(myHbddMap);
     }

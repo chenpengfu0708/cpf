@@ -12,7 +12,7 @@ public class HbddMainController {
         return "hbddMain";
     }
 
-    @RequestMapping(value = "/ew/hbddMain", method = RequestMethod.GET)
+    @RequestMapping(value = "/ew/hbdd", method = RequestMethod.GET)
     public String hbdd(){
         return "hbdd";
     }

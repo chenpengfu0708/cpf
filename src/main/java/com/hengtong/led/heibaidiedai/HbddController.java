@@ -21,7 +21,7 @@ public class HbddController {
     private RedisUtils redisUtils;
 
 
-    @PostMapping("/con/hbdd")
+    @PostMapping("ew/con/hbdd")
     public CommonResponseDto hbdd(@RequestBody HbddRequestDto requestDto) {
         Map<String, String> map = new HashMap<>();
         int[][] myHbdd = hbddMain.mapToArray(requestDto.getToken());
@@ -29,7 +29,7 @@ public class HbddController {
         return hbddMain.sout(requestDto.getX(), requestDto.getY(), requestDto.getToken(), map, myHbdd);
     }
 
-    @PostMapping("/con/checkStatus")
+    @PostMapping("ew/con/checkStatus")
     public CommonResponseDto checkStatus(@RequestBody HbddRequestDto requestDto) {
         if (redisUtils.exitst("finish_" + requestDto.getToken())) {
             return new CommonResponseDto().code(0).finish(1);

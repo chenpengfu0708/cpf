@@ -41,9 +41,9 @@ function change(plane, x, y, f) {
     var data = JSON.stringify(adata);
     $.ajax({
         type: "POST",
-        dataType: "json",//通过GET方式上传请求
-        contentType: "application/json",//上传内容格式为json结构
-        data: data,                                 //上传的参数
+        dataType: "json",
+        contentType: "application/json",
+        data: data,
         async: false,
         url: "con/hbdd",     //请求的url。与后端@Request Mapping注解中的值一致。
         success: function (data) {		      //请求成功的回调函数
@@ -80,9 +80,9 @@ function checkStatus() {
     var data = JSON.stringify(adata);
     $.ajax({
         type: "POST",
-        dataType: "json",//通过GET方式上传请求
-        contentType: "application/json",//上传内容格式为json结构
-        data: data,                                 //上传的参数
+        dataType: "json",
+        contentType: "application/json",
+        data: data,
         async: true,
         url: "con/checkStatus",     //请求的url。与后端@Request Mapping注解中的值一致。
         success: function (data) {		      //请求成功的回调函数
