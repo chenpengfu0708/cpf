@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HbddMainController {
 
     @RequestMapping(value = "/hbddMain", method = RequestMethod.GET)
-    public String test(){
+    public String hbddMain(){
+        return "hbddMain";
+    }
+
+    @RequestMapping(value = "/ew/hbddMain", method = RequestMethod.GET)
+    public String hbdd(){
         return "hbdd";
     }
 

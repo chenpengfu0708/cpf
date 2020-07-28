@@ -127,6 +127,7 @@ public class RedisUtils {
      */
     public void setMap(String key, Map<String, String> map) {
         redisTemplate.opsForHash().putAll(key, map);
+        redisTemplate.expire(key, 1L, TimeUnit.DAYS);
     }
 
 
