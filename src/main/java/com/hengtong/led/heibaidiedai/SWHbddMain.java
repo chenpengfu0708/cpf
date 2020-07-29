@@ -27,13 +27,13 @@ public class SWHbddMain {
         return main;
     }
 
-    public CommonResponseDto sout(Integer plane, Integer x, Integer y, String token, Map<String, int[][]> myHbddMap) {
+    public CommonResponseDto sout(Integer num, Integer plane, Integer x, Integer y, String token, Map<String, int[][]> myHbddMap) {
         CommonResponseDto commonResponseDto = new CommonResponseDto();
         if (x != -1 && y != -1) {
             click(plane, x, y, myHbddMap);
         } else {
             //初始化出题
-            sendTopic(5, token, myHbddMap);
+            sendTopic(num, token, myHbddMap);
         }
         return commonResponseDto.code(0).data(myHbddMap);
     }
@@ -104,7 +104,7 @@ public class SWHbddMain {
             for (int j = 0; j < click; j++) {
                 Integer x = (int) (Math.random() * 8);
                 Integer y = (int) (Math.random() * 8);
-                sout(i, x, y, token, myHbddMap);
+                sout(click, i, x, y, token, myHbddMap);
             }
         }
 

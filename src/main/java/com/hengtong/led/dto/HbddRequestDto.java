@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class HbddRequestDto {
 
+    private Integer num;
+
     private Integer plane;
 
     private Integer x;

@@ -27,12 +27,12 @@ public class HbddMain {
         return main;
     }
 
-    public CommonResponseDto sout(Integer a, Integer b, String token, Map<String, String> map, int[][] myHbdd) {
+    public CommonResponseDto sout(Integer num, Integer a, Integer b, String token, Map<String, String> map, int[][] myHbdd) {
         CommonResponseDto commonResponseDto = new CommonResponseDto();
         if (a != -1 && b != -1) {
             myHbdd = click(a, b, myHbdd);
         } else {
-            sendTopic(8, token, map, myHbdd);
+            sendTopic(num, token, map, myHbdd);
         }
         int xy = 0;
         int numx = 0;
@@ -100,7 +100,7 @@ public class HbddMain {
         for (int i = 0; i < click; i++) {
             Integer x = (int)(Math.random()*8);
             Integer y = (int)(Math.random()*8);
-            sout(x, y, token, map, myHbdd);
+            sout(click, x, y, token, map, myHbdd);
         }
     }
 

@@ -26,7 +26,7 @@ public class HbddController {
         Map<String, String> map = new HashMap<>();
         int[][] myHbdd = hbddMain.mapToArray(requestDto.getToken());
         HbddMain.initMain();
-        return hbddMain.sout(requestDto.getX(), requestDto.getY(), requestDto.getToken(), map, myHbdd);
+        return hbddMain.sout(requestDto.getNum(), requestDto.getX(), requestDto.getY(), requestDto.getToken(), map, myHbdd);
     }
 
     @PostMapping("ew/con/checkStatus")

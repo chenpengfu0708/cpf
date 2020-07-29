@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>老敷游戏站-黑白迭代</title>
@@ -9,17 +10,18 @@
 <script src="../js/jquery-1.7.1.js"></script>
 <script src="../js/swhbdd.js"></script>
 <body>
-<div style="padding-left: 20%;">
-    <table border="0">
-        <tr style="height: 3px">
+<input id="num" th:value="${num}" hidden />
+<div style="padding-left: 20%;padding-top: 0%">
+    <table border="1">
+        <tr>
             <td>
-                <p align="center" style="height: 3px"><font style="font-family: 黑体;color: black;">第一层</font></p>
+                <p align="center" style="height: 1px"><font style="font-family: 黑体;color: black;">第一层</font></p>
             </td>
             <td>
-                <p align="center" style="height: 3px"><font style="font-family: 黑体;color: black;">第二层</font></p>
+                <p align="center" style="height: 1px"><font style="font-family: 黑体;color: black;">第二层</font></p>
             </td>
             <td>
-                <p align="center" style="height: 3px"><font style="font-family: 黑体;color: black;">第三层</font></p>
+                <p align="center" style="height: 1px"><font style="font-family: 黑体;color: black;">第三层</font></p>
             </td>
         </tr>
         <tr>
@@ -282,7 +284,6 @@
                 </div>
             </td>
         </tr>
-        <br/>
         <tr style="height: 3px">
             <td>
                 <p align="center" style="height: 3px"><font style="font-family: 黑体;color: black;">第四层</font></p>
@@ -555,6 +556,14 @@
             </td>
         </tr>
 
+    </table>
+</div>
+<div style="padding-left: 35%">
+    <table border="1">
+        <tr>
+            <td width="150px" height="10px"><a href="hbddMain"><p align="center">返回首页</p></a></td>
+            <td width="150px"><a href="javascript:location.reload();"><p align="center">再玩一次</p></a></td>
+        </tr>
     </table>
 </div>
 </body>

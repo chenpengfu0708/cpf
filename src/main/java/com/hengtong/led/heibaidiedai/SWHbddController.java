@@ -24,7 +24,7 @@ public class SWHbddController {
     @PostMapping("/sw/con/hbdd")
     public CommonResponseDto hbdd(@RequestBody HbddRequestDto requestDto) {
         HbddMain.initMain();
-        CommonResponseDto response = swhbddMain.sout(requestDto.getPlane(), requestDto.getX(), requestDto.getY(), requestDto.getToken(), getMap(requestDto));
+        CommonResponseDto response = swhbddMain.sout(requestDto.getNum(), requestDto.getPlane(), requestDto.getX(), requestDto.getY(), requestDto.getToken(), getMap(requestDto));
         Map<String, int[][]> main = (Map<String, int[][]>)response.getData();
         HashMap<String, Object> data = new HashMap<>();
         sout(main, requestDto.getToken(), response, data);

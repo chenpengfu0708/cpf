@@ -6,7 +6,20 @@ var token = "";
 //是否已经提示过完成
 var finish = 0;
 
+var numb = 3;
+
 $(document).ready(function () {
+
+    var num = $("#num").val();
+    if (num == "new") {
+        numb = 1;
+    } else if (num == "primary") {
+        numb = 3;
+    } else if (num == "middle") {
+        numb = 5;
+    } else if (num == "high") {
+        numb = 8;
+    }
 
     var $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var maxPos = $chars.length;
@@ -33,6 +46,7 @@ function test(a) {
 
 function change(plane, x, y, f) {
     var adata = {
+        "num":numb,
         "plane": plane,
         "x": x,
         "y": y,

@@ -6,7 +6,20 @@ var token = "";
 //是否已经提示过完成
 var finish = 0;
 
+var numb = 4;
+
 $(document).ready(function () {
+
+    var num = $("#num").val();
+    if (num == "new") {
+        numb = 2;
+    } else if (num == "primary") {
+        numb = 4;
+    } else if (num == "middle") {
+        numb = 8;
+    } else if (num == "high") {
+        numb = 14;
+    }
 
     var $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var maxPos = $chars.length;
@@ -32,6 +45,7 @@ function test(a){
 
 function change(x, y, f) {
     var adata = {
+        "num":numb,
         "x":x,
         "y":y,
         "token" : token
