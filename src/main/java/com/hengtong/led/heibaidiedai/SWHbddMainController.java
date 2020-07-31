@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SWHbddMainController {
 
-    @RequestMapping(value = "/sw/hbddMain", method = RequestMethod.GET)
+    @RequestMapping(value = "/swhbddMain", method = RequestMethod.GET)
     public String test(Model model, @RequestParam("num") String num){
         model.addAttribute("num", num);
         return "swhbdd";

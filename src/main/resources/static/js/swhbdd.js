@@ -59,7 +59,7 @@ function change(plane, x, y, f) {
         contentType: "application/json",
         data: data,
         async: false,
-        url: "con/hbdd",     //请求的url。与后端@Request Mapping注解中的值一致。
+        url: "con/swhbdd",     //请求的url。与后端@Request Mapping注解中的值一致。
         success: function (data) {		      //请求成功的回调函数
             if (data.code === 0) {
                 for (let p = 0; p < 6; p++) {
@@ -98,7 +98,7 @@ function checkStatus() {
         contentType: "application/json",
         data: data,
         async: true,
-        url: "con/checkStatus",     //请求的url。与后端@Request Mapping注解中的值一致。
+        url: "con/swcheckStatus",     //请求的url。与后端@Request Mapping注解中的值一致。
         success: function (data) {		      //请求成功的回调函数
             if (data.code === 0) {
                 if (data.finish === 1) {

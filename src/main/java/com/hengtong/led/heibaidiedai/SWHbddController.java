@@ -21,7 +21,7 @@ public class SWHbddController {
     private RedisUtils redisUtils;
 
 
-    @PostMapping("/sw/con/hbdd")
+    @PostMapping("/con/swhbdd")
     public CommonResponseDto hbdd(@RequestBody HbddRequestDto requestDto) {
         HbddMain.initMain();
         CommonResponseDto response = swhbddMain.sout(requestDto.getNum(), requestDto.getPlane(), requestDto.getX(), requestDto.getY(), requestDto.getToken(), getMap(requestDto));
@@ -58,7 +58,7 @@ public class SWHbddController {
         return response.data(data);
     }
 
-    @PostMapping("/sw/con/checkStatus")
+    @PostMapping("/con/swcheckStatus")
     public CommonResponseDto checkStatus(@RequestBody HbddRequestDto requestDto) {
         if (redisUtils.exitst("finish_" + requestDto.getToken())) {
             return new CommonResponseDto().code(0).finish(1);
