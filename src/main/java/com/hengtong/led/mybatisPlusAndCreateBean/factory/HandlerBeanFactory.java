@@ -1,6 +1,6 @@
-package com.hengtong.led.mybatisPlus.factory;
+package com.hengtong.led.mybatisPlusAndCreateBean.factory;
 
-import com.hengtong.led.mybatisPlus.service.TestFactoryService;
+import com.hengtong.led.mybatisPlusAndCreateBean.service.TestFactoryService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;

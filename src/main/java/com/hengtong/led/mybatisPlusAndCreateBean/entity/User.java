@@ -1,4 +1,4 @@
-package com.hengtong.led.mybatisPlus.entity;
+package com.hengtong.led.mybatisPlusAndCreateBean.entity;
 
 import java.io.Serializable;
 import java.util.Date;

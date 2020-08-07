@@ -1,7 +1,7 @@
-package com.hengtong.led.mybatisPlus.service;
+package com.hengtong.led.mybatisPlusAndCreateBean.service;
 
 import com.hengtong.led.dto.FindUserRequestDto;
-import com.hengtong.led.mybatisPlus.entity.User;
+import com.hengtong.led.mybatisPlusAndCreateBean.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

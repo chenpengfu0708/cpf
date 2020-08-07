@@ -1,7 +1,7 @@
 package com.hengtong.led.thread;
 
 import com.alibaba.fastjson.JSON;
-import com.hengtong.led.mybatisPlus.entity.User;
+import com.hengtong.led.mybatisPlusAndCreateBean.entity.User;
 
 import java.util.concurrent.Callable;
 

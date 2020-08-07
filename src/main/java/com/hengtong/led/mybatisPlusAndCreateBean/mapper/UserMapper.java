@@ -1,6 +1,6 @@
-package com.hengtong.led.mybatisPlus.mapper;
+package com.hengtong.led.mybatisPlusAndCreateBean.mapper;
 
-import com.hengtong.led.mybatisPlus.entity.User;
+import com.hengtong.led.mybatisPlusAndCreateBean.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

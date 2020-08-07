@@ -1,4 +1,4 @@
-package com.hengtong.led.mybatisPlus.codeGenerator;
+package com.hengtong.led.mybatisPlusAndCreateBean.codeGenerator;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;

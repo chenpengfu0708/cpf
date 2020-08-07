@@ -1,4 +1,4 @@
-package com.hengtong.led.mybatisPlus.factory;
+package com.hengtong.led.mybatisPlusAndCreateBean.factory;
 
 import com.hengtong.led.dto.HandlerDto;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.hengtong.led.thread;
 
-import com.hengtong.led.mybatisPlus.entity.User;
+import com.hengtong.led.mybatisPlusAndCreateBean.entity.User;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,15 +1,15 @@
-package com.hengtong.led.mybatisPlus.controller;
+package com.hengtong.led.mybatisPlusAndCreateBean.controller;
 
 
 import com.hengtong.led.CommonErrorCode;
 import com.hengtong.led.dto.FindUserRequestDto;
 import com.hengtong.led.dto.HandlerDto;
 import com.hengtong.led.exception.BusinessRuntimeException;
-import com.hengtong.led.mybatisPlus.entity.User;
-import com.hengtong.led.mybatisPlus.factory.HandlerBeanFactory;
-import com.hengtong.led.mybatisPlus.factory.HandlerFactory;
-import com.hengtong.led.mybatisPlus.service.IUserService;
-import com.hengtong.led.mybatisPlus.service.TestFactoryService;
+import com.hengtong.led.mybatisPlusAndCreateBean.entity.User;
+import com.hengtong.led.mybatisPlusAndCreateBean.factory.HandlerBeanFactory;
+import com.hengtong.led.mybatisPlusAndCreateBean.factory.HandlerFactory;
+import com.hengtong.led.mybatisPlusAndCreateBean.service.IUserService;
+import com.hengtong.led.mybatisPlusAndCreateBean.service.TestFactoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +80,7 @@ public class MybatisPlusUserController {
      */
     @PostConstruct
     public void te() {
-        System.out.println(userService.findAll());
+        System.out.println("加载servlet时执行一次: "+userService.findAll());
     }
 
 }
