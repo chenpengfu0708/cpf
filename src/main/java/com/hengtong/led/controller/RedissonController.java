@@ -34,4 +34,11 @@ public class RedissonController {
     }
 
 
+    @GetMapping("/testSessionCallBack")
+    @ResponseBody
+    public void testSessionCallBack() {
+        redisUtils.redisSessionCallBack();
+    }
+
+
 }

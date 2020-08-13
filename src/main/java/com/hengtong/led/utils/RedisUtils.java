@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
@@ -137,5 +139,27 @@ public class RedisUtils {
     public Map<Object, Object> getMap(String key) {
         return redisTemplate.opsForHash().entries(key);
     }
+
+
+    /**
+     * redis事务
+     */
+    public void redisSessionCallBack() {
+        //创建一个事务
+        SessionCallback sessionCallback = new SessionCallback() {
+            @Override
+            public Object execute(RedisOperations redisOperations) throws DataAccessException {
+                //告诉redis，接下来开启事务
+                redisOperations.multi();
+                //相应的redis操作
+                redisOperations.opsForValue().set("key1", "测试1", 1L, TimeUnit.MINUTES);
+                redisOperations.delete("key1");
+                return redisOperations.exec();
+            }
+        };
+        //执行事务
+        redisTemplate.execute(sessionCallback);
+    }
+
 
 }
