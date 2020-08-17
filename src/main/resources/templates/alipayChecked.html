@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>确认订单</title>
+</head>
+<body>
+
+<form method="post">
+    <input type="hidden" id="productId" name="productId" value="${id}"/>
+    <table>
+        <tr>
+            <td th:text="'产品编号: '+${id}"></td>
+        </tr>
+        <tr>
+            <td th:text="'产品名称: '+${name}"></td>
+        </tr>
+        <tr>
+            <td th:text="'产品价格: '+${price}"></td>
+        </tr>
+        <tr>
+            <td >购买个数： <input id="buyCounts" name="buyCounts"/></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="确认" onclick="createOrder()"/></td>
+        </tr>
+    </table>
+</form>
+<input type="hidden" id="hdnContextPath" name="hdnContextPath" value=".."/>
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript">
+  var hdnContextPath = $("#hdnContextPath").val();
+
+  function createOrder() {
+    $.ajax({
+      url : "/createOrder",
+      type : "POST",
+      data : {
+        "productId" : $("#productId").val(),
+        "buyCounts" : $("#buyCounts").val()
+      },
+      dataType : "json",
+      success : function(data) {
+        if (data.status == 200 && data.msg == "OK") {
+          debugger;
+          // 提交订单成功后, 进入购买页面
+          window.location.href = "/alipay/pay?orderId=" + data.data;
+        } else {
+          alert(data.msg);
+        }
+      }
+    });
+  }
+</script>
+</html>

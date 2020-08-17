@@ -201,7 +201,7 @@
             <version>4.3.1</version>
         </dependency>
 
-<!--        minio分布式文件系统依赖-->
+        <!--        minio分布式文件系统依赖-->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
@@ -219,6 +219,12 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
+        <!--集成支付-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.1.0</version>
+        </dependency>
     </dependencies>
 
 

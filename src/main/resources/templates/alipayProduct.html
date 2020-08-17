@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>货物清单</title>
+
+</head>
+<body>
+
+<table>
+    <thead>
+        <tr>
+            <th>产品编号</th>
+            <th>产品名称</th>
+            <th>产品价格</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td data-label="产品编号">1001</td>
+        <td data-label="日期">苹果</td>
+        <td data-label="金额">0.01</td>
+        <td data-label="周期"><a th:href="@{/alipay/checked(productId=1001)}">购买</a></td>
+    </tr>
+    <tr>
+        <td data-label="产品编号">1002</td>
+        <td data-label="日期">香蕉</td>
+        <td data-label="金额">0.02</td>
+        <td data-label="周期"><a th:href="@{/alipay/checked(productId=1002)}">购买</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+
+</html>
