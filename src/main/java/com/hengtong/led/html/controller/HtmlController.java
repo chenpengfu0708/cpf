@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hengtong.led.dto.CommonResponseDto;
 import com.hengtong.led.dto.TestRequestDto;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -47,5 +48,11 @@ public class HtmlController {
         TestRequestDto requestDto = JSONObject.parseObject(request, TestRequestDto.class);
         System.out.println(requestDto);
         return new CommonResponseDto().code(0).success(true);
+    }
+
+    @RequestMapping(value = "/layuiIndex", method = RequestMethod.GET)
+    public String layuiIndex(Model model){
+        model.addAttribute("name", "林三");
+        return "layuiIndex";
     }
 }

@@ -8,6 +8,7 @@ import com.hengtong.led.alipay.config.PayConfig;
 import com.hengtong.led.alipay.domain.Orders;
 import com.hengtong.led.alipay.service.PayService;
 import com.hengtong.led.alipay.util.CommonResult;
+import com.hengtong.led.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author column
@@ -28,6 +31,10 @@ public class PayController {
 
     @Autowired
     PayService payService;
+    @Autowired
+    private RedisUtils redisUtils;
+
+    private static final String payOrderKey = "payOrderKey";
 
     /**
      * 跳往商品列表页面
@@ -70,7 +77,7 @@ public class PayController {
     public CommonResult createOrder(Orders order) throws Exception {
         //TODO 根据前端传过来的数据获取产品
         //TODO 保存订单详细信息
-        return CommonResult.ok("A099903");
+        return CommonResult.ok(redisUtils.getKey(payOrderKey));
     }
 
     /**
@@ -90,7 +97,10 @@ public class PayController {
         map.put("order", order);
         map.put("p", p);
         */
-        map.put("orderId","A099903");
+        String orderNo = UUID.randomUUID().toString().replaceAll("-", "");
+        redisUtils.setKey(payOrderKey, orderNo, 1L, TimeUnit.DAYS);
+        System.out.println("orderNo = " + orderNo);
+        map.put("orderId", orderNo);
         map.put("pName","苹果");
         map.put("orderAmount","0.02");
         map.put("buyCounts","2");
@@ -147,7 +157,6 @@ public class PayController {
     /**
      * 支付宝异步通知页面
      */
-    @ResponseBody
     @RequestMapping(value = "/alipayNotifyNotice")
     public String alipayNotifyNotice(HttpServletRequest request, HttpServletRequest response) throws Exception {
 
@@ -167,6 +176,8 @@ public class PayController {
             // valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
         }
+
+        System.out.println("param = " + params);
 
         boolean signVerified = AlipaySignature.rsaCheckV1(params, PayConfig.alipay_public_key, PayConfig.charset,
                 PayConfig.sign_type); // 调用SDK验证签名
