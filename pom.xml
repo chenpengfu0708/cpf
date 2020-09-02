@@ -225,6 +225,11 @@
             <artifactId>alipay-sdk-java</artifactId>
             <version>3.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.0</version>
+        </dependency>
     </dependencies>
 
 

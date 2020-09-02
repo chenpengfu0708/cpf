@@ -38,7 +38,7 @@ public class TemplateExportService {
                        HttpServletResponse servletResponse) {
         servletResponse.setHeader("content-Type", "application/vnd.ms-excel");
         // 下载文件的名称采用当前时间戳
-        Long fileName = new Date().getTime();
+        Long fileName = System.currentTimeMillis();
         servletResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName.toString() + ".xlsx");
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFCellStyle cellStyle = (XSSFCellStyle) workbook.createCellStyle();

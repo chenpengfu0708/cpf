@@ -13,8 +13,8 @@ import java.util.Map;
 @Repository
 public interface UserMapper1 extends BaseMapper<User> {
 
-    @Insert("insert into user(id,name,age) values(NULL,#{name},#{age})")
-    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    @Insert("insert into user(id,name,age,push_status) values(#{id},#{name},#{age},'0')")
+//    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void save(User user);
 
     @Select("select * from user")
