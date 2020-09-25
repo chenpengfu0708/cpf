@@ -10,6 +10,7 @@ import com.hengtong.led.templateExport.entity.ExportTemplateData;
 import com.hengtong.led.templateExport.repository.ExportTemplateDataRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -47,6 +48,9 @@ public class TemplateExportService {
         CellStyle cellstyle = workbook.createCellStyle();
         cellstyle.setVerticalAlignment(VerticalAlignment.CENTER);
         cellstyle.setAlignment(HorizontalAlignment.CENTER);
+        Font font = workbook.createFont();
+        font.setColor(Font.COLOR_RED);
+        cellStyle.setFont(font);
 
         ExportTemplateData templateData = exportTemplateDataRepository.findByEntityObject("firstTest");
 

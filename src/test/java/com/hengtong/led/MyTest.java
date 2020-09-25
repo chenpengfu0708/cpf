@@ -10,6 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class MyTest {
@@ -35,6 +41,12 @@ public class MyTest {
             user.setId(28 + i);
             userMapper1.save(user);
         }
+    }
+
+
+    @Test
+    public void testMap() {
+
     }
 
 }

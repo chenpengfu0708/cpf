@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 二维码工具类
@@ -96,7 +97,8 @@ public class QrCodeUtil {
     }
 
     public static void main(String[] args) {
-        String methods = methods("http://www.baidu.com");
-        System.out.println(methods);
+//        String methods = methods("http://www.baidu.com");
+//        System.out.println(methods);
+        System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
     }
 }
