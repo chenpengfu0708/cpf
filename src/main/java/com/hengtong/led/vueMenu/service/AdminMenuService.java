@@ -15,6 +15,7 @@ public class AdminMenuService {
     private AdminMenuMapper adminMenuMapper;
 
     public List<AdminMenuTreeNode> getMenu(HttpServletRequest request) {
+        System.out.println(adminMenuMapper.findAll());
         return null;
     }
 

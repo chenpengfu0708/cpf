@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -20,18 +21,18 @@ public class AdminMenu {
 
     // 创建时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime dateCreated;
+    private Date dateCreated;
 
     // 删除时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime deleteDate;
+    private Date deleteDate;
 
     // 逻辑删除标志，1为已删除，0为未删除
     private Integer deleteFlag = 0;
 
     // 最后更新时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime lastUpdated;
+    private Date lastUpdated;
 
     // 数据版本号，用于乐观锁，insert后为1，update后自增
     private Integer version;
