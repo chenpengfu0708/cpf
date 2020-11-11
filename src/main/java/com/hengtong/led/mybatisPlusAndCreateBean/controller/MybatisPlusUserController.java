@@ -15,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -80,6 +82,8 @@ public class MybatisPlusUserController {
      */
     @PostConstruct
     public void te() {
+        List<User> list = userService.findAll();
+        list.stream().sorted(Comparator.comparing(User::getAge).reversed()).collect(Collectors.toList());
         System.out.println("加载servlet时执行一次: "+userService.findAll());
     }
 

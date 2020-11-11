@@ -25,4 +25,12 @@ public class FileUploadController {
         //2020.4.7 新增一个body，用于记录MultipartFile 与 body公用，去掉@RequestBody注解即可共用
         return fileUploadService.upload(file);
     }
+
+    @RequestMapping(value = "/my/testFile", method = RequestMethod.POST)
+    public String testFile(MultipartFile file, String sign) {
+        log.info("fileName = " + file.getOriginalFilename());
+        log.info("sign = " + sign);
+        //2020.4.7 新增一个body，用于记录MultipartFile 与 body公用，去掉@RequestBody注解即可共用
+        return file.getName();
+    }
 }
