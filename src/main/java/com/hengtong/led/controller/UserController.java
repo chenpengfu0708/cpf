@@ -5,6 +5,8 @@ import com.hengtong.led.dto.PageResponseDto;
 import com.hengtong.led.dto.TDto;
 import com.hengtong.led.entity.User;
 import com.hengtong.led.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +21,13 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 @Controller
+@Api(tags = "用户api")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @ApiOperation("/测试")
     @GetMapping("/testCount")
     @ResponseBody
     public void testCount() {
