@@ -5,6 +5,21 @@
     <title>Title</title>
 </head>
 <body>
-成功后跳转页面！
+<input type="text" onkeyup="test(this)" onblur="test(this)"/>
 </body>
+<script type="text/javascript">
+    function test(str) {
+        var pattern = new RegExp("[{}()<>=,.;:\"'#!/*]");
+        var src = /src/;
+        var Javascript = /Javascript/;
+        var script = /script/;
+        var img = /img/;
+        var onerror = /onerror/;
+        console.log(str.value);
+        if (pattern.test(str.value) || src.test(str.value) || Javascript.test(str.value) || script.test(str.value) || img.test(str.value) || onerror.test(str.value)) {
+            str.onfocus;
+            alert("非法字符输入");
+        }
+    }
+</script>
 </html>

@@ -78,4 +78,8 @@ factory:
 lp:
   key: lpKeyTest
 
+#配置指定定时任务
+myScheduling:
+  enable: true
+
 

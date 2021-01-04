@@ -1,15 +1,16 @@
 package com.hengtong.led.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.hengtong.led.dto.HttpWeiXiongDto;
 import com.hengtong.led.dto.WxOpenIdDto;
 import com.hengtong.led.utils.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection.Response;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -58,5 +59,14 @@ public class HttpController {
             e.printStackTrace();
         }
         return new WxOpenIdDto();
+    }
+
+    @RequestMapping(value = "/insureResultST", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public JSONObject insureResultST(@RequestBody JSONObject jsonObject) {
+        log.info("jsonObject = " + jsonObject.toJSONString());
+        jsonObject.put("code", "1");
+        return jsonObject;
     }
 }

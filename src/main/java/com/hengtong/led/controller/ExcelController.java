@@ -1,6 +1,8 @@
 package com.hengtong.led.controller;
 
 import com.hengtong.led.service.UserService;
+import com.hengtong.led.utils.IOUtils;
+import com.itextpdf.text.pdf.PdfReader;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -8,11 +10,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 
 @Slf4j
 @Controller
@@ -57,5 +60,54 @@ public class ExcelController {
         return "成功啦";
     }
 
+
+    @RequestMapping("/getPdf")
+    public void showPdf(HttpServletResponse response) {
+        response.setContentType("application/pdf");
+        FileInputStream in;
+        OutputStream out;
+        try {
+            in = new FileInputStream(new File("C:\\Users\\fu\\Desktop\\dzfp.pdf"));
+            checkPdfCompleteness(in);
+            out = response.getOutputStream();
+            byte[] b = new byte[512];
+            while ((in.read(b)) != -1) {
+                out.write(b);
+                out.flush();
+            }
+            in.close();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean checkPdfCompleteness(InputStream in){
+        boolean result = false;
+        PdfReader pdfReader = null;
+        try {
+            pdfReader = new PdfReader(IOUtils.toBufferedInputStream(in));
+            result = !pdfReader.isTampered();
+        } catch (IOException e) {
+            //needless
+        } finally {
+            IOUtils.close(pdfReader);
+        }
+        System.out.println("保函是否完好：" + result);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        FileInputStream in;
+        OutputStream out;
+        try {
+            in = new FileInputStream(new File("C:\\Users\\fu\\Desktop\\mydzfp.pdf"));
+            checkPdfCompleteness(in);
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
