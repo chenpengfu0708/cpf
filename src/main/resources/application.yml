@@ -80,6 +80,6 @@ lp:
 
 #配置指定定时任务
 myScheduling:
-  enable: true
+  enable: false
 
 

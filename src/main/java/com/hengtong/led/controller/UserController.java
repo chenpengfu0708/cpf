@@ -2,18 +2,19 @@ package com.hengtong.led.controller;
 
 
 import com.hengtong.led.dto.PageResponseDto;
+import com.hengtong.led.dto.Resource;
 import com.hengtong.led.dto.TDto;
+import com.hengtong.led.dto.XmlDto;
 import com.hengtong.led.entity.User;
 import com.hengtong.led.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -27,6 +28,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 线程倒计时计数器
+     */
     @ApiOperation("/测试")
     @GetMapping("/testCount")
     @ResponseBody
@@ -44,6 +48,7 @@ public class UserController {
                     } catch (Exception e) {
                         log.error("子线程异常：" + e);
                     } finally {
+                        //线程计数器减1，必须放在finally中
                         latch.countDown();
                     }
                 }
@@ -51,6 +56,7 @@ public class UserController {
             service.execute(runnable);
         }
         try {
+            //全部执行完，等待完成，继续往下走
             latch.await();
             //去查redis有没有命中
             System.out.println("主线程往下走");
@@ -86,4 +92,23 @@ public class UserController {
     public void paymentGateway() {
         System.out.println(".........");
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/myxml", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_XML_VALUE}, consumes = {MediaType.APPLICATION_XML_VALUE})
+    public void insure(@RequestBody XmlDto dto) {
+        System.out.println(dto);
+        System.out.println(dto);
+        /*
+        * 示例报文
+        <?xml version="1.0" encoding="UTF-8"?>
+        <xmlDto>
+            <resource>
+                <id>1</id>
+            </resource>
+        </xmlDto>
+
+        * */
+    }
+
 }

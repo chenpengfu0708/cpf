@@ -84,7 +84,7 @@ public class MybatisPlusUserController {
     public void te() {
         List<User> list = userService.findAll();
         list.stream().sorted(Comparator.comparing(User::getAge).reversed()).collect(Collectors.toList());
-        System.out.println("加载servlet时执行一次: "+userService.findAll());
+//        System.out.println("加载servlet时执行一次: "+userService.findAll());
     }
 
 }

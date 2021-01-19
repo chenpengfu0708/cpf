@@ -14,6 +14,7 @@ import java.util.Properties;
 /**
  * rocketmq消费者启动初始化类
  * 同一个消费者可以消费不同的topic，同一个topic可以被不同的消费者消费（启用该方式相当于集群消费中的广播消费）
+ * groupId相同的消费者属于同一个集群，是否消费是看topicId，监听同一个topicId的都会消费这条消息
  * @author cpf
  * @Date 2019年6月25日
  *
