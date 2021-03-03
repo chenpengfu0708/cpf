@@ -27,7 +27,7 @@ public class SecurityLoginController {
 
     @PostMapping("/login")
     public String login(@RequestBody SysUser sysUser, HttpServletRequest request){
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(sysUser.getUsername());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(sysUser.getUsername());
         return jwtTokenUtil.generateToken(userDetails);
     }
 
