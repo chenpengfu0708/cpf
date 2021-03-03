@@ -161,5 +161,11 @@ public class RedisUtils {
         redisTemplate.execute(sessionCallback);
     }
 
+    /**
+     * 刷新key
+     */
+    public void refreshKey(String key, Long time, TimeUnit timeUnit) {
+        redisTemplate.expire(key, time, timeUnit);
+    }
 
 }

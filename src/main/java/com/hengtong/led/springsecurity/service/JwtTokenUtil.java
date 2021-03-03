@@ -1,8 +1,10 @@
 package com.hengtong.led.springsecurity.service;
 
+import com.hengtong.led.utils.RedisUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -28,6 +30,8 @@ public class JwtTokenUtil implements Serializable {
 
     @Value("${jwt.token}")
     private String tokenHeader;
+    @Autowired
+    private RedisUtils redisUtils;
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -55,14 +59,12 @@ public class JwtTokenUtil implements Serializable {
     }
 
     /**
-     * 校验token：是否存在，是否过期
+     * 校验token是否匹配，是否过期
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
         SecurityUserDetails user = (SecurityUserDetails) userDetails;
         final String username = getUserNameFromToken(token);
-        return (username.equals(user.getUsername())
-//                && !isTokenExpired(token)
-        );
+        return (username.equals(user.getUsername()) && redisUtils.exitst(username));
     }
 
     /**

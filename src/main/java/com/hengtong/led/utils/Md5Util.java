@@ -17,7 +17,7 @@ public class Md5Util {
     public static void main(String[] args) {
         String a = "757f180173ecc4fca21f73a8d02fb722" + "zsddcxzcz3jzczxffrdfsf48jnsdfsdf98798l";//测试：zsddcxzcz3jzczxffrdfsf48jnsdfsdf98798l
         //展翅md5
-        String a2 = "37063f39-47d6-46a0-9830-c95cd57ef493" + "zsddcxzcz3jzczxffrdfsf48jnsdfsdf98798l";
+        String a2 = "zc000000002" + "zsddcxzcz3jzczxffrdfsf48jnsdfsdf98798l";
         //百万三者
         String a3 = "00000033-36be-49c0-bc33-08b23821ea02" + "laymedtest8ghjloaid0dk9dka456wq";
         //中山校付通

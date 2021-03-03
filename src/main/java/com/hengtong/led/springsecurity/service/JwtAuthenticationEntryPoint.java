@@ -23,7 +23,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             throws IOException, ServletException {
 
         System.out.println("JwtAuthenticationEntryPoint:"+authException.getMessage());
-        CommonResponseDto commonResponseDto = new CommonResponseDto().code(HttpServletResponse.SC_UNAUTHORIZED).message("认证信息为空!");
+        CommonResponseDto commonResponseDto = new CommonResponseDto().code(HttpServletResponse.SC_UNAUTHORIZED).message("认证失败!");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(JSON.toJSONString(commonResponseDto));

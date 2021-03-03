@@ -1,6 +1,8 @@
 package com.hengtong.led.springsecurity.service;
 
+import com.hengtong.led.utils.RedisUtils;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author fu
@@ -25,6 +28,9 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
     private final String tokenHeader;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     public JwtAuthorizationTokenFilter(@Qualifier("jwtUserDetailsService") UserDetailsService userDetailsService,
                                        JwtTokenUtil jwtTokenUtil, @Value("${jwt.token}") String tokenHeader) {
@@ -49,6 +55,8 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                System.out.println("认证成功：" + username);
+                redisUtils.refreshKey(username, 1L, TimeUnit.MINUTES);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
