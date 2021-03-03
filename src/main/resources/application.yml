@@ -82,4 +82,10 @@ lp:
 myScheduling:
   enable: false
 
+#Spring security
+jwt:
+  secret: secret
+  expiration: 60000
+  token: Authorization
+
 
