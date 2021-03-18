@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +45,11 @@ public class SecurityLoginController {
     @PostMapping("haha")
     public String haha(){
         return "123";
+    }
+
+    @GetMapping("/ignore/first")
+    public void ignore() {
+        System.out.println("忽略。。。。。。。。。");
     }
 
 

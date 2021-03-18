@@ -1,15 +1,12 @@
 package com.hengtong.led.springsecurity.service;
 
 import com.hengtong.led.utils.RedisUtils;
+import com.hengtong.led.utils.SpringUtil;
 import io.jsonwebtoken.ExpiredJwtException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -20,27 +17,20 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * filter不能给Spring容器托管，不然WebSecurity中ignoring的url会失效，继续走过滤器
+ *
  * @author fu
  */
-@Component
+//@Component
 public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
-    private final UserDetailsService userDetailsService;
-    private final JwtTokenUtil jwtTokenUtil;
-    private final String tokenHeader;
-
-    @Autowired
-    private RedisUtils redisUtils;
-
-    public JwtAuthorizationTokenFilter(@Qualifier("jwtUserDetailsService") UserDetailsService userDetailsService,
-                                       JwtTokenUtil jwtTokenUtil, @Value("${jwt.token}") String tokenHeader) {
-        this.userDetailsService = userDetailsService;
-        this.jwtTokenUtil = jwtTokenUtil;
-        this.tokenHeader = tokenHeader;
-    }
+    private String tokenHeader = "Authorization";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+        UserDetailsService userDetailsService = SpringUtil.getBean(JwtUserDetailsService.class);
+        JwtTokenUtil jwtTokenUtil = SpringUtil.getBean(JwtTokenUtil.class);
+        RedisUtils redisUtils = SpringUtil.getBean(RedisUtils.class);
         String authToken = request.getHeader(this.tokenHeader);
         String username = null;
         if (authToken != null && !"".equals(authToken)) {
@@ -49,11 +39,8 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
             } catch (ExpiredJwtException e) {
             }
         }
-
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 System.out.println("认证成功：" + username);
                 redisUtils.refreshKey(username, 1L, TimeUnit.MINUTES);

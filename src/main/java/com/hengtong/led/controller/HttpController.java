@@ -64,9 +64,7 @@ public class HttpController {
     @RequestMapping(value = "/insureResultST", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public JSONObject insureResultST(@RequestBody JSONObject jsonObject) {
+    public void insureResultST(@RequestBody JSONObject jsonObject) {
         log.info("jsonObject = " + jsonObject.toJSONString());
-        jsonObject.put("code", "1");
-        return jsonObject;
     }
 }
