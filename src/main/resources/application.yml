@@ -37,6 +37,21 @@ rocketmq:
   accessKey: xxx
   secretKey: xxx
   onsAddr: xxx  #生产者TCP接入域名
+  producer:
+    groupName: ProducerGroup
+    namesrvAddr: 127.0.0.1:9876
+    instanceName: ProducerGroup
+    topic: MY_TEST_TOPIC
+    tag: test
+    maxMessageSize: 131072
+    sendMsgTimeout: 10000
+  consumer:
+    groupName: ConsumerGroup
+    namesrvAddr: 127.0.0.1:9876
+    topic: MY_TEST_TOPIC
+    tag: test
+    consumeThreadMin: 20
+    consumeThreadMax: 40
 
 ##上传文件的路径
 upload:

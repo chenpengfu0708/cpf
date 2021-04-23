@@ -1,11 +1,9 @@
 package com.hengtong.led.controller;
 
 
-import com.hengtong.led.dto.PageResponseDto;
-import com.hengtong.led.dto.Resource;
-import com.hengtong.led.dto.TDto;
-import com.hengtong.led.dto.XmlDto;
+import com.hengtong.led.dto.*;
 import com.hengtong.led.entity.User;
+import com.hengtong.led.mapper.UserMapper1;
 import com.hengtong.led.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -110,5 +108,15 @@ public class UserController {
 
         * */
     }
+
+    @Autowired
+    private UserMapper1 userMapper1;
+    @ResponseBody
+    @PostMapping("/getAllUser")
+    public CommonResponseDto getAllUser() {
+        CommonResponseDto<User> result = new CommonResponseDto<>();
+        return result.code(0).data(userMapper1.get100());
+    }
+
 
 }

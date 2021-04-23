@@ -52,6 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //login都可以访问，但是permitAll的会走过滤器
                 .antMatchers("/login").permitAll()
                 .antMatchers("/insureResultST").permitAll()
+                .antMatchers("/getAllUser").permitAll()
+                .antMatchers("/myRocketMqLocalTest").permitAll()
                 //不需要以 ROLE_ 开头，会自动插入
                 .antMatchers("/haha").hasRole("USER")
                 .antMatchers("/sysUser/test").hasRole("admin")

@@ -20,6 +20,9 @@ public interface UserMapper1 extends BaseMapper<User> {
     @Select("select * from user")
     List<User> getAll();
 
+    @Select("select * from user limit 0,100")
+    List<User> get100();
+
 
     @Select({
             "<script>" +

@@ -172,6 +172,21 @@
             <artifactId>ons-client</artifactId>
             <version>1.8.0.Final</version>
         </dependency>
+        <!--    本地apache rocketMq配置    -->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.16</version>
+        </dependency>
+
+
 
 
         <dependency>
@@ -270,7 +285,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <skip>true</skip>
+<!--                    <skip>true</skip>-->
+                    <includeSystemScope>true</includeSystemScope>
+                    <mainClass>com.hengtong.led.LedApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
